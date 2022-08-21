@@ -34,7 +34,7 @@ body {
       rgba(113, 195, 247, 0.73),
       rgba(246, 246, 246, 0.73)
     ),
-    url("chatempty.jpg");
+    url("/src/img/chatempty.jpg");
 
   background-repeat: no-repeat;
   background-size: cover;
