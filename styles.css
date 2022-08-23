@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    width: 90%;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 200px 300px 1fr 100px ;
+}
+
+.item {
+    margin: 20px 0;
+    border: 2px solid blue;
+    text-align: center;
+}
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px;
+    font-size: 20px;
+}
+.logo img {
+    width: 25px;
+    margin-left: 8px;
+    margin-top: 5px;
+  }
+  .logo + ul {
+    padding: 0;
+  }
+.list-1 {
+    list-style: none;
+    margin: 10px 0;
+    border-bottom: 1px solid white;
+}
+.list-toggle-1 {
+    list-style: none;
+    margin: 10px 0;
+    background-color: whitesmoke;
+    border: 1px solid white;
+    border-right: 5px solid orange;
+}
+a {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+}
+
+.space-1 {
+    padding: 0 20px;
+    background-color: silver;
+}
+.projects-1 {
+    display: block;
+    margin-top: 100px;
+}
+.subH-1 {
+    text-align: left;
+}
+.sub-proj {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.square{
+    height: 20px;
+    width: 20px;
+    border: 2px solid orange;
+    border-radius: 10px;
+}
+span {
+    background-color: black;
+    color: white;
+    padding: 5px;
+}
+.btn-1 {
+    width: 100%;
+    padding: 10px 0;
+    margin: 10px 0;
+    background-color: silver;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
