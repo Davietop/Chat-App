@@ -4,6 +4,13 @@ const showForm = function () {
   signupView._render();
 };
 
+const loginform = function () {
+  signupView._renderLoginMakup();
+  const email = (document.getElementById("email-login").value = "ert");
+  const password = (document.getElementById("password-login").value = 30);
+  console.log(email, password);
+};
+
 const submitForm = async function () {
   try {
     const email = document.getElementById("email");
@@ -30,6 +37,7 @@ const spinner = function () {
 const init = function () {
   signupView._addHandlerEmail(showForm);
   signupView._addHandlerSignUp(submitForm, spinner);
+  signupView._addHandlerShowLoginForm(loginform);
 };
 init();
 

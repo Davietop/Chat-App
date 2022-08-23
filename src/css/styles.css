@@ -280,6 +280,64 @@ form #submit {
   cursor: pointer;
   color: white;
 }
+#form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40%;
+}
+#form-login h1 {
+  margin-bottom: 15%;
+}
+#form-login .email-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#form-login .email-login label {
+  display: flex;
+  align-self: left;
+  margin-bottom: 10px;
+}
+
+#form-login .email-login input {
+  padding: 15px;
+  width: 300px;
+  border-radius: 8px;
+  border: 2px solid black;
+  margin-bottom: 5%;
+  outline: none;
+}
+#form-login .password-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#form-login .password-login label {
+  display: flex;
+  align-self: left;
+  margin-bottom: 10px;
+}
+
+#form-login .password-login input {
+  padding: 15px;
+  width: 300px;
+  border-radius: 8px;
+  border: 2px solid black;
+  margin-bottom: 5%;
+  outline: none;
+}
+#form-login #login {
+  width: 300px;
+  margin-top: 10%;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ade2d4;
+  background: rgba(1, 157, 255, 0.73);
+  cursor: pointer;
+  color: white;
+}
 
 /* 
 MEDIA QUERIES
