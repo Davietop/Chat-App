@@ -28,6 +28,21 @@ class SignUpView {
   _clear() {
     this.mainContent.innerHTML = "";
   }
+  _errorMessage(messsage) {
+    const markUp = `
+    <section class="err_message">
+    <img src="src/img/error.png" alt="img" />
+    <h1>Whoops!</h1>
+    <p>Something went wrong</p>
+    <p>${messsage}</p>
+    <button>Try Again</button>
+  </section>   
+    `;
+    this._clear();
+    this.mainContent.insertAdjacentHTML("afterbegin", markUp);
+
+    c;
+  }
 
   signInPageMarkUp() {
     return `
@@ -39,10 +54,27 @@ class SignUpView {
           <section>
           <p class="p-1">Create an account</p>
           </section>
+          <section class="username">
+          <label for="">Username</label>
+          <input type="text" name="" id="username" value="davietop" />
+          </section>
           <section class="email">
           <label for="">Email</label>
-          <input type="email" name="" id="email" value="Hello1237@gmail.com" />
+          <input type="email" name="" id="email" value="" />
           </section>
+          <section class="phone">
+          <label for="">Phone Number</label>
+          <input type="text" name="" id="number" value="2349045308923" />
+          </section>
+          <section class="picture">
+          <label for="">Profile Picture</label>
+          <input
+            type="file"
+            id="profile"
+            name="profile"
+            accept="image/png, image/jpeg"
+          />
+        </section>
           <section class="password">
           <label for="">Password</label>
           <input type="password" name="" id="password"  value="123656573"/>

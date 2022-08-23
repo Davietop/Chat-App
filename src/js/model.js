@@ -19,26 +19,46 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export const createAccount = function (email, password) {
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      state.user.push({
-        userName: user.displayName,
-        userEmail: user.email,
-        userPhoneNumber: user.phoneNumber,
-        userProfilePic: user.photoURL,
-        userId: user.uid,
-      });
-      console.log(state.user);
-
-      console.log(user);
-    })
-    .catch((error) => {
-      const errorCode = error.code.split("/")[1];
-      const errorMessage = error.message;
-      alert(errorCode);
-
-      // ..
-    });
+export const createAccountEmail = async function (
+  email,
+  password,
+  username,
+  number
+) {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        state.user.push({
+          userName: username,
+          userEmail: user.email,
+          userPhoneNumber: +number,
+          userProfilePic: user.photoURL,
+          userId: user.uid,
+        });
+        localStorage.setItem("account", JSON.stringify(state.user));
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
 };
+
+export const getAccountsFromStorage = function () {
+  const storage = localStorage.getItem("account");
+  if (storage) {
+    state.user = JSON.parse(storage);
+  }
+};
+getAccountsFromStorage();
+// console.log(state.user);
+
+// const findAcc = function () {
+//   if (state.user.length !== 0) {
+//     const account = state.user.find((acc) => {
+//       return acc.userEmail === "oyatoyedavid12@gmail.com";
+//     });
+//     console.log(account);
+//   }
+// };
+// findAcc();
