@@ -10,6 +10,7 @@ const submitForm = async function () {
     const password = document.getElementById("password");
     const username = document.getElementById("username");
     const number = document.getElementById("number");
+
     await model.createAccountEmail(
       email.value,
       password.value,
@@ -17,21 +18,21 @@ const submitForm = async function () {
       number.value
     );
   } catch (error) {
-    const errorCode = error.code.split("/")[1];
-    const errorMessage = error.message;
-    alert(errorCode);
+    const errorCode = error.code.split("/")[1].toUpperCase();
     console.log(errorCode);
     signupView._errorMessage(errorCode);
   }
 };
+const spinner = function () {
+  signupView._renderSpinner();
+};
 
 const init = function () {
   signupView._addHandlerEmail(showForm);
-  signupView._addHandlerSignUp(submitForm);
+  signupView._addHandlerSignUp(submitForm, spinner);
 };
 init();
 
-// const img = document.querySelector("#profile");
-// img.addEventListener("change", function () {
-//   console.log(this.files[0].name);
-// });
+export const success = function () {
+  signupView._successMessage();
+};

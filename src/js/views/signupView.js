@@ -3,8 +3,25 @@ class SignUpView {
   mainContent = document.querySelector(".main-content");
   _spinnerParent = document.querySelector(".spinner");
 
+  constructor() {
+    this._btnTryAgain();
+  }
+
   _render() {
     const markUp = this.signInPageMarkUp();
+    this._clear();
+    this.mainContent.insertAdjacentHTML("afterbegin", markUp);
+  }
+
+  _renderSpinner() {
+    const markUp = `
+      <section class="spinner">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </section> 
+  `;
     this._clear();
     this.mainContent.insertAdjacentHTML("afterbegin", markUp);
   }
@@ -16,32 +33,54 @@ class SignUpView {
       handle();
     });
   }
-  _addHandlerSignUp(handler) {
+  _addHandlerSignUp(handler, spinner) {
     this.mainContent.addEventListener("click", function (e) {
       e.preventDefault();
       const btn = e.target.closest("#submit");
       if (!btn) return;
       handler();
+      spinner();
+    });
+  }
+  _btnTryAgain() {
+    this.mainContent.addEventListener("click", function (e) {
+      e.preventDefault();
+      const btn = e.target.closest("#btn");
+      if (!btn) return;
+      console.log(btn);
+      location.reload();
     });
   }
 
   _clear() {
     this.mainContent.innerHTML = "";
   }
-  _errorMessage(messsage) {
+  _errorMessage(message) {
     const markUp = `
     <section class="err_message">
-    <img src="src/img/error.png" alt="img" />
+    <img src="error.c07872e0.png" alt="img" />
     <h1>Whoops!</h1>
     <p>Something went wrong</p>
-    <p>${messsage}</p>
-    <button>Try Again</button>
+    <p>${message}</p>
+    <button id="btn">Try Again</button>
   </section>   
     `;
     this._clear();
     this.mainContent.insertAdjacentHTML("afterbegin", markUp);
+  }
 
-    c;
+  _successMessage() {
+    const markUp = `
+    <section class="err_message">
+    <img src="/check.7e05fbb6.png" alt="img" />
+    <h1>Saved!</h1>
+    <p>Congratulations</p>
+    <p>Account Successfully Created!</p>
+    <button id="btn"  style="background-color: green;">Okay</button>
+  </section>   
+    `;
+    this._clear();
+    this.mainContent.insertAdjacentHTML("afterbegin", markUp);
   }
 
   signInPageMarkUp() {
@@ -56,7 +95,7 @@ class SignUpView {
           </section>
           <section class="username">
           <label for="">Username</label>
-          <input type="text" name="" id="username" value="davietop" />
+          <input type="text" name="" id="username" value="" />
           </section>
           <section class="email">
           <label for="">Email</label>
@@ -64,20 +103,11 @@ class SignUpView {
           </section>
           <section class="phone">
           <label for="">Phone Number</label>
-          <input type="text" name="" id="number" value="2349045308923" />
+          <input type="text" name="" id="number" value="" />
           </section>
-          <section class="picture">
-          <label for="">Profile Picture</label>
-          <input
-            type="file"
-            id="profile"
-            name="profile"
-            accept="image/png, image/jpeg"
-          />
-        </section>
           <section class="password">
           <label for="">Password</label>
-          <input type="password" name="" id="password"  value="123656573"/>
+          <input type="password" name="" id="password"  value=""/>
           </section>
           <input type="submit" id="submit" value="Sign Up" />
           </form>

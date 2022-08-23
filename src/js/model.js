@@ -4,6 +4,7 @@ export const state = {
 
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { success } from "./controller";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6H11TQnEfSr6jxy7DmnkLAbB21ZoPPGs",
@@ -36,7 +37,11 @@ export const createAccountEmail = async function (
           userProfilePic: user.photoURL,
           userId: user.uid,
         });
+
+        console.log(state.user);
+
         localStorage.setItem("account", JSON.stringify(state.user));
+        if (user) success();
       }
     );
   } catch (error) {
@@ -50,15 +55,40 @@ export const getAccountsFromStorage = function () {
     state.user = JSON.parse(storage);
   }
 };
-getAccountsFromStorage();
-// console.log(state.user);
 
-// const findAcc = function () {
-//   if (state.user.length !== 0) {
-//     const account = state.user.find((acc) => {
-//       return acc.userEmail === "oyatoyedavid12@gmail.com";
-//     });
-//     console.log(account);
-//   }
-// };
-// findAcc();
+getAccountsFromStorage();
+
+// {
+//   auth.languageCode = "it";
+//   import { GoogleAuthProvider } from "firebase/auth";
+//   const provider = new GoogleAuthProvider(app);
+//   signInWithPopup,
+//   GoogleAuthProvider,
+
+//   const createAccountGoogle = function () {
+//     signInWithPopup(auth, provider)
+//       .then((result) => {
+//         const credential = GoogleAuthProvider.credentialFromResult(result);
+//         const token = credential.accessToken;
+//         const user = result.user;
+//         state.users.push({
+//           userName: user.displayName,
+//           userEmail: user.email,
+//           userId: user.uid,
+//         });
+//         console.log(state.users);
+//       })
+//       .catch((error) => {
+//         // Handle Errors here.
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         console.log(errorMessage);
+//         // The email of the user's account used.
+//         const email = error.customData.email;
+//         // The AuthCredential type that was used.
+//         const credential = GoogleAuthProvider.credentialFromError(error);
+//         // ...
+//       });
+//   };
+
+// }
