@@ -3,7 +3,9 @@
 }
 body {
     width: 90%;
-    border: 2px solid rgba(0, 0, 0, 0.3);
+    border: 5px solid black;
+    /* border: 2px solid rgba(0, 0, 0, 0.3); */
+    box-shadow: 3px -3px 10px 1px silver;
     margin: 20px auto;
 }
 
@@ -79,37 +81,7 @@ a {
     flex-direction: column;
     border-right: 0;
 }
-/* .projects-1 {
-    display: block;
-    margin-top: 100px;
-}
-.subH-1 {
-    text-align: left;
-}
-.sub-proj {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
 
-.square{
-    height: 20px;
-    width: 20px;
-    border: 2px solid orange;
-    border-radius: 10px;
-}
-span {
-    background-color: black;
-    color: white;
-    padding: 5px;
-} */
-/* .btn-1 {
-    width: 100%;
-    padding: 10px 0;
-    margin: 10px 0;
-    background-color: silver;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-} */
 .heading-2 {
     display: flex;
     align-items: center;
@@ -261,12 +233,12 @@ i {
 }
 
 .msg-input{
-    border-top: 2px solid;
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
-    margin: 0 auto;
+    margin: 5px auto 0;
 }
 .msg-input ul {
     display: flex;
