@@ -11,6 +11,14 @@ class SignUpView {
     const markUp = this.signInPageMarkUp();
     this._clear();
     this.mainContent.insertAdjacentHTML("afterbegin", markUp);
+    this.mainContent.addEventListener("click", function (e) {
+      const btn = e.target.closest("i");
+      if (!btn) return;
+      btn.classList.toggle("fa-eye-slash");
+      const password = document.getElementById("password");
+      if (password.type === "password") password.type = "text";
+      else password.type = "password";
+    });
   }
 
   _renderSpinner() {
@@ -34,7 +42,7 @@ class SignUpView {
     });
   }
   _addHandlerSignUp(handler, spinner) {
-    this.mainContent.addEventListener("click", function (e) {
+    this.mainContent?.addEventListener("click", function (e) {
       e.preventDefault();
       const btn = e.target.closest("#submit");
       if (!btn) return;
@@ -42,17 +50,13 @@ class SignUpView {
       spinner();
     });
   }
-  _addHandlerShowLoginForm(handle) {
-    document.querySelector(".p-2").addEventListener("click", function () {
-      handle();
-    });
-  }
+
   _btnTryAgain() {
     this.mainContent.addEventListener("click", function (e) {
       e.preventDefault();
       const btn = e.target.closest("#btn");
       if (!btn) return;
-      console.log(btn);
+      // console.log(btn);
       location.reload();
     });
   }
@@ -113,32 +117,11 @@ class SignUpView {
           <section class="password">
           <label for="">Password</label>
           <input type="password" name="" id="password"  value=""/>
+          <i class="fa-solid fa-eye"></i>
           </section>
           <input type="submit" id="submit" value="Sign Up" />
           </form>
   `;
-  }
-  logInMarkUp() {
-    return `
-    <form id="form-login">
-    <h1>Log In</h1>
-    <section class="email-login">
-      <label for="">Email</label>
-      <input type="email" name="" id="email-login" value="" />
-    </section>
-
-    <section class="password-login">
-      <label for="">Password</label>
-      <input type="password" name="" id="password-login" value="" />
-    </section>
-    <input type="submit" id="login" value="Log In" />
-  </form>    
-    `;
-  }
-  _renderLoginMakup() {
-    const markUp = this.logInMarkUp();
-    this._clear();
-    this.mainContent.insertAdjacentHTML("afterbegin", markUp);
   }
 }
 

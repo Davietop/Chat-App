@@ -270,6 +270,12 @@ form .password input {
   border: 2px solid black;
   outline: none;
 }
+form .password i {
+  margin-top: -11%;
+  margin-right: 30px;
+  display: flex;
+  align-self: flex-end;
+}
 form #submit {
   width: 300px;
   margin-top: 10%;
@@ -327,6 +333,12 @@ form #submit {
   border: 2px solid black;
   margin-bottom: 5%;
   outline: none;
+}
+form .password-login i {
+  margin-top: -16%;
+  margin-right: 30px;
+  display: flex;
+  align-self: flex-end;
 }
 #form-login #login {
   width: 300px;

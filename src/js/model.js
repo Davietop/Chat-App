@@ -1,10 +1,15 @@
+import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { success } from "./controller";
+import { successLogIn } from "./controller";
+
 export const state = {
   user: [],
 };
-
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { success } from "./controller";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6H11TQnEfSr6jxy7DmnkLAbB21ZoPPGs",
@@ -20,14 +25,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-export const createAccountEmail = async function (
+export let createAccountEmail = async function (
   email,
   password,
   username,
   number
 ) {
   try {
-    await createUserWithEmailAndPassword(auth, email, password).then(
+    await createUserWithEmailAndPassword(auth, email, password, username).then(
       (userCredential) => {
         const user = userCredential.user;
         state.user.push({
@@ -36,12 +41,23 @@ export const createAccountEmail = async function (
           userPhoneNumber: +number,
           userProfilePic: user.photoURL,
           userId: user.uid,
+          userMessages: [],
         });
-
-        console.log(state.user);
-
         localStorage.setItem("account", JSON.stringify(state.user));
         if (user) success();
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const loginAccountEmail = async function (email, password) {
+  try {
+    await signInWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
+        const user = userCredential.user;
+        if (user) successLogIn();
       }
     );
   } catch (error) {
@@ -57,38 +73,3 @@ export const getAccountsFromStorage = function () {
 };
 
 getAccountsFromStorage();
-
-// {
-//   auth.languageCode = "it";
-//   import { GoogleAuthProvider } from "firebase/auth";
-//   const provider = new GoogleAuthProvider(app);
-//   signInWithPopup,
-//   GoogleAuthProvider,
-
-//   const createAccountGoogle = function () {
-//     signInWithPopup(auth, provider)
-//       .then((result) => {
-//         const credential = GoogleAuthProvider.credentialFromResult(result);
-//         const token = credential.accessToken;
-//         const user = result.user;
-//         state.users.push({
-//           userName: user.displayName,
-//           userEmail: user.email,
-//           userId: user.uid,
-//         });
-//         console.log(state.users);
-//       })
-//       .catch((error) => {
-//         // Handle Errors here.
-//         const errorCode = error.code;
-//         const errorMessage = error.message;
-//         console.log(errorMessage);
-//         // The email of the user's account used.
-//         const email = error.customData.email;
-//         // The AuthCredential type that was used.
-//         const credential = GoogleAuthProvider.credentialFromError(error);
-//         // ...
-//       });
-//   };
-
-// }
