@@ -1,3 +1,6 @@
+import errorIcon from "../../img/error.png";
+import checkIcon from "../../img/check.png";
+
 class LoginView {
   _btnParentContainer = document.querySelector(".btn-group");
   mainContent = document.querySelector(".main-content");
@@ -17,7 +20,7 @@ class LoginView {
   _errorMessage(message) {
     const markUp = `
     <section class="err_message">
-    <img src="error.c07872e0.png" alt="img" />
+    <img src="${errorIcon}" alt="img" />
     <h1>Whoops!</h1>
     <p>Something went wrong</p>
     <p>${message}</p>
@@ -30,7 +33,7 @@ class LoginView {
   _successMessage() {
     const markUp = `
     <section class="err_message">
-    <img src="/check.7e05fbb6.png" alt="img" />
+    <img src="${checkIcon}" alt="img" />
     <h1>Saved!</h1>
     <p>Congratulations</p>
     <p>Login Successfull!</p>

@@ -1,7 +1,9 @@
 import signupView from "./views/signupView.js";
 import loginView from "./views/loginView.js";
+import chatView from "./views/chatView.js";
 import * as model from "./model.js";
 import { async } from "@firebase/util";
+
 const showForm = function () {
   signupView._render();
 };
@@ -13,19 +15,15 @@ const loginform = async function () {
   try {
     const email = document.getElementById("email-login");
     const password = document.getElementById("password-login");
+    const data = await model.loginAccountEmail(email.value, password.value);
 
-    await model.loginAccountEmail(email.value, password.value);
-
-    const findAcc = model.state.user.find(
-      (acc) => acc.userEmail === email.value
-    );
-    const curAccount = findAcc;
-    console.log(curAccount);
-    alert(`Welcome ${curAccount.userName}`);
     loginView._body.innerHTML = "";
+    chatView._render(data.account);
+
+    console.log(data.account);
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
-    console.log(errorCode);
+
     loginView._errorMessage(errorCode);
   }
 };
@@ -45,7 +43,7 @@ const submitForm = async function () {
     );
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
-    console.log(errorCode);
+
     signupView._errorMessage(errorCode);
   }
 };

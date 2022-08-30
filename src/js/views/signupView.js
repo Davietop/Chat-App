@@ -1,3 +1,6 @@
+import errorIcon from "../../img/error.png";
+import checkIcon from "../../img/check.png";
+
 class SignUpView {
   _btnParentContainer = document.querySelector(".btn-group");
   mainContent = document.querySelector(".main-content");
@@ -67,7 +70,7 @@ class SignUpView {
   _errorMessage(message) {
     const markUp = `
     <section class="err_message">
-    <img src="error.c07872e0.png" alt="img" />
+    <img src="${errorIcon}" alt="img" />
     <h1>Whoops!</h1>
     <p>Something went wrong</p>
     <p>${message}</p>
@@ -81,7 +84,7 @@ class SignUpView {
   _successMessage() {
     const markUp = `
     <section class="err_message">
-    <img src="/check.7e05fbb6.png" alt="img" />
+    <img src="${checkIcon}" alt="img" />
     <h1>Saved!</h1>
     <p>Congratulations</p>
     <p>Account Successfully Created!</p>
@@ -103,19 +106,19 @@ class SignUpView {
           <p class="p-1">Create an account</p>
           </section>
           <section class="username">
-          <label for="">Username</label>
+          <label for="">Username   <i class="fa-solid fa-asterisk"></i></label>
           <input type="text" name="" id="username" value="" />
           </section>
           <section class="email">
-          <label for="">Email</label>
+          <label for="">Email  <i class="fa-solid fa-asterisk"></i></label>
           <input type="email" name="" id="email" value="" />
           </section>
           <section class="phone">
-          <label for="">Phone Number</label>
+          <label for="">Phone Number  <i class="fa-solid fa-asterisk"></i></label>
           <input type="text" name="" id="number" value="" />
           </section>
           <section class="password">
-          <label for="">Password</label>
+          <label for="">Password  <i class="fa-solid fa-asterisk"></i></label>
           <input type="password" name="" id="password"  value=""/>
           <i class="fa-solid fa-eye"></i>
           </section>
