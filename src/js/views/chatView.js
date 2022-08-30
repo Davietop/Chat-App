@@ -6,24 +6,28 @@ import arroba from "../../img/arroba (2).png";
 import use from "../../img/use.jpg";
 import send from "../../img/send.png";
 
-console.log(send);
-
 class ChatView {
   _body = document.querySelector("body");
   _whole = document.querySelector(".whole");
+  _account;
 
   _clear() {
     this._whole.innerHTML = "";
   }
-
-  _render(data) {
-    const markUp = this._chatpageMarkUp(data);
-    this._clear();
-    this._body.insertAdjacentHTML("afterbegin", markUp);
+  _addHandlerId(data, handler) {
+    const ele = document
+      .querySelector(".chat-space")
+      .addEventListener("click", function (e) {
+        const btn = e.target.closest(".chat-box");
+        if (!btn) return;
+        const id = btn.dataset.acc;
+        const acc = data.find((acc) => acc[0] === id);
+        handler(acc);
+      });
   }
 
-  _chatpageMarkUp(data) {
-    return `
+  _render(users) {
+    const markUp = `
     <main id="main-section">
     <fieldset id="chat-field">
       <section class="inbox-space">
@@ -45,92 +49,24 @@ class ChatView {
             <h3>General</h3>
           </section>
         </section>
-
-        <section class="chat-box">
+         ${users
+           .map((acc) => {
+             return `
+          <section class="chat-box" data-acc="${acc[0]}">
           <img src="${chatimg1}" alt="" />
           <section class="message">
-            <h4>Kate S</h4>
-            <p>Hello David. How are you doing...</p>
+            <h4>${acc[1].account.userName}</h4>
+            <p>${acc[1].account.messages.receivedMsg[0]}</p>
           </section>
         </section>
-        <section class="chat-box">
-          <img src="${chatimg2}" alt="" />
-          <section class="message">
-            <h4>Jonas S</h4>
-            <p>Hello David. How are you doing...</p>
-          </section>
-        </section>
-        <section class="chat-box">
-          <img src="${chatimg3}" alt="" />
-          <section class="message">
-            <h4>Tolu D</h4>
-            <p>Hello David. How are you doing...</p>
-          </section>
-        </section>
-        <section class="chat-box">
-          <img src="${chatimg4}" alt="" />
-          <section class="message">
-            <h4>Fola B</h4>
-            <p>Hello David... I miss you baby❤️😍</p>
-          </section>
-        </section>
-        <section class="chat-box">
-          <img src="${use}" alt="" />
-          <section class="message">
-            <h4>Adeoluwa</h4>
-            <p>Bro how far na</p>
-          </section>
-        </section>
+          `;
+           })
+           .join("")}
+
       </section>
 
       <section class="width">
-        <section class="message-box">
-          <section class="top-box">
-            <section class="name">
-              <img src="${chatimg1}" alt="" />
-              <section class="about">
-                <h4>${data.userName}</h4>
-                <h5>Online</h5>
-              </section>
-            </section>
-
-            <section class="search-field">
-              <input type="text" name="" id="" /><i
-                class="fa-solid fa-magnifying-glass"
-              ></i>
-            </section>
-          </section>
-
-          <section class="message-section">
-            <section class="day">
-              <h1>August 26, Friday</h1>
-            </section>
-            <section class="msg">
-              <p class="message1">Hii there David</p>
-              <p class="message2">Bro how are you doing</p>
-              <p class="message1">I am fine man</p>
-              <p class="message1">I hope you good too??</p>
-              <p class="message2">
-                I am fine too just sorting out some things
-              </p>
-              <p class="message1">
-                Ohh that is amazing i hope you figure it out man
-              </p>
-            </section>
-          </section>
-        </section>
-
-        <hr />
-        <section class="send-area">
-          <textarea
-            name=""
-            id="send"
-            cols="30"
-            rows="3"
-            placeholder="Write a message..."
-          ></textarea>
-          <img src="${send}" alt="hiiii" id="sendbtn" />
-        </section>
+       
       </section>
 
       <section class="icon-logout">
@@ -138,7 +74,68 @@ class ChatView {
       </section>
     </fieldset>
   </main>
-        `;
+    `;
+    this._clear();
+    this._body.insertAdjacentHTML("afterbegin", markUp);
+  }
+
+  _renderChatArea(parent, acc) {
+    console.log(acc);
+    const markUp = `
+    <section class="message-box">
+    <section class="top-box">
+      <section class="name">
+        <img src="${chatimg1}" alt="" />
+        <section class="about">
+          <h4>${acc[1].account.userName}</h4>
+          <h5>Online</h5>
+        </section>
+      </section>
+
+      <section class="search-field">
+        <input type="text" name="" id="" /><i
+          class="fa-solid fa-magnifying-glass"
+        ></i>
+      </section>
+    </section>
+
+    <section class="message-section">
+      <section class="day">
+        <h1>August 26, Friday</h1>
+      </section>
+      <section class="msg">
+   
+      </section>
+    </section>
+  </section>
+
+  <hr />
+  <section class="send-area">
+    <textarea
+      name=""
+      id="send"
+      cols="30"
+      rows="3"
+      placeholder="Write a message..."
+    ></textarea>
+    <img src="${send}" alt="hiiii" id="sendbtn" />
+  </section>
+    `;
+    parent.innerHTML = "";
+    parent.insertAdjacentHTML("afterbegin", markUp);
   }
 }
 export default new ChatView();
+
+{
+  /* <p class="message1">Hii there David</p>
+<p class="message2">Bro how are you doing</p>
+<p class="message1">I am fine man</p>
+<p class="message1">I hope you good too??</p>
+<p class="message2">
+  I am fine too just sorting out some things
+</p>
+<p class="message1">
+  Ohh that is amazing i hope you figure it out man
+</p> */
+}

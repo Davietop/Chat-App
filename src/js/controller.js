@@ -11,23 +11,29 @@ const showLoginForm = function () {
   loginView._renderLoginMakup();
 };
 
+const displayChat = function (acc) {
+  chatView._renderChatArea(document.querySelector(".width"), acc);
+};
+
 const loginform = async function () {
   try {
     const email = document.getElementById("email-login");
     const password = document.getElementById("password-login");
-    const data = await model.loginAccountEmail(email.value, password.value);
+    const curUser = await model.loginAccountEmail(email.value, password.value);
+    // console.log(curUser);
+
+    const dataUser = Object.entries(model.state.user);
 
     loginView._body.innerHTML = "";
-    chatView._render(data.account);
 
-    console.log(data.account);
+    chatView._render(dataUser);
+
+    chatView._addHandlerId(dataUser, displayChat);
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
-
     loginView._errorMessage(errorCode);
   }
 };
-
 const submitForm = async function () {
   try {
     const email = document.getElementById("email");
@@ -43,7 +49,6 @@ const submitForm = async function () {
     );
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
-
     signupView._errorMessage(errorCode);
   }
 };

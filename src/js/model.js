@@ -7,23 +7,13 @@ import {
 import { getDatabase, ref, set, get, child } from "firebase/database";
 import { success } from "./controller";
 import { successLogIn } from "./controller";
+import { FIREBASECONFIG } from "./config";
 
 export const state = {
   user: {},
 };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA6H11TQnEfSr6jxy7DmnkLAbB21ZoPPGs",
-  authDomain: "chat-app-c879e.firebaseapp.com",
-  databaseURL: "https://chat-app-c879e-default-rtdb.firebaseio.com",
-  projectId: "chat-app-c879e",
-  storageBucket: "chat-app-c879e.appspot.com",
-  messagingSenderId: "930893778008",
-  appId: "1:930893778008:web:9ed27806d394755b134e2d",
-  measurementId: "G-N7MLN4D33F",
-};
-
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(FIREBASECONFIG);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
@@ -68,15 +58,13 @@ export let createAccountEmail = async function (
   }
 };
 
-const getAccount = async function () {
+export const getAccount = async function () {
   const dbRef = ref(getDatabase());
   const snapshot = await get(child(dbRef, `users`));
   if (!snapshot.exists()) return;
-  state.user = snapshot.val();
+  return (state.user = snapshot.val());
 };
-
 getAccount();
-
 export const loginAccountEmail = async function (email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(
