@@ -511,7 +511,7 @@ MEDIA QUERIES
 #chat-field .chat-space::-webkit-scrollbar-thumb {
   background-color: white;
   border-radius: 5px;
-  border: 2px solid rgb(171, 171, 241);
+  border: 2px solid whitesmoke;
 }
 #chat-field .chat-space .header {
   /* border: 1px solid; */
@@ -619,7 +619,7 @@ MEDIA QUERIES
 #chat-field .width .message-box::-webkit-scrollbar-thumb {
   background-color: white;
   border-radius: 5px;
-  border: 2px solid rgb(171, 171, 241);
+  border: 2px solid whitesmoke;
 }
 
 #chat-field .width .message-box .top-box {

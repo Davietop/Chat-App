@@ -6,6 +6,21 @@ import arroba from "../../img/arroba (2).png";
 import use from "../../img/use.jpg";
 import send from "../../img/send.png";
 
+import { initializeApp } from "firebase/app";
+
+import {
+  getDatabase,
+  set,
+  ref,
+  child,
+  push,
+  update,
+  get,
+} from "firebase/database";
+import { FIREBASECONFIG } from "../config.js";
+const app = initializeApp(FIREBASECONFIG);
+const database = getDatabase(app);
+
 class ChatView {
   _body = document.querySelector("body");
   _whole = document.querySelector(".whole");
@@ -14,7 +29,7 @@ class ChatView {
   _clear() {
     this._whole.innerHTML = "";
   }
-  _addHandlerId(data, handler) {
+  _addHandlerId(data, handler, curUser) {
     const ele = document
       .querySelector(".chat-space")
       .addEventListener("click", function (e) {
@@ -22,8 +37,54 @@ class ChatView {
         if (!btn) return;
         const id = btn.dataset.acc;
         const acc = data.find((acc) => acc[0] === id);
-        handler(acc);
+        handler(acc, curUser, data);
       });
+  }
+
+  _addHandlerSend(acc, curUser, users) {
+    const message = document.getElementById("send");
+    const btn = document.getElementById("sendbtn");
+    const doc = document.querySelector(".msg");
+    btn.addEventListener("click", function () {
+      if (message.value === "") return;
+
+      // SENT MSG ARRAY
+      // let sentMsg = acc.at(1).account.messages.sentMsg.message;
+      // sentMsg.push(message.value);
+      // acc.at(1).account.messages.sentMsg.to = acc.at(0);
+
+      // // RECEIVED MSG ARRAY
+      // let receivedMsg = (acc.at(1).account.messages.receivedMsg.message =
+      //   sentMsg);
+      // acc.at(1).account.messages.receivedMsg.from = curUser.account.userId;
+
+      // console.log(curUser);
+      // function writeUserData(userId) {
+      //   const db = getDatabase();
+      //   update(ref(db, "users/" + userId + "/account"), {
+      //     messages: acc.at(1).account.messages,
+      //   });
+      // }
+
+      // writeUserData(acc.at(0));
+
+      // function getData(userId) {
+      //   const dbRef = ref(getDatabase());
+      //   get(child(dbRef, `users/${userId}`))
+      //     .then((snapshot) => {
+      //       if (snapshot.exists()) {
+      //         console.log(snapshot.val());
+      //       } else {
+      //         console.log("No data available");
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error(error);
+      //     });
+      // }
+
+      // getData(acc.at(0));
+    });
   }
 
   _render(users) {
@@ -52,11 +113,16 @@ class ChatView {
          ${users
            .map((acc) => {
              return `
-          <section class="chat-box" data-acc="${acc[0]}">
+          <section class="chat-box" data-acc="${acc.at(0)}">
           <img src="${chatimg1}" alt="" />
           <section class="message">
-            <h4>${acc[1].account.userName}</h4>
-            <p>${acc[1].account.messages.receivedMsg[0]}</p>
+            <h4>${acc.at(1).account.userName}</h4>
+            <p id="userChat">${acc
+              .at(1)
+              .account.messages.sentMsg.message.at(
+                acc.at(1).account.messages.sentMsg.message.length - 1
+              )}</p>
+            
           </section>
         </section>
           `;
@@ -87,7 +153,7 @@ class ChatView {
       <section class="name">
         <img src="${chatimg1}" alt="" />
         <section class="about">
-          <h4>${acc[1].account.userName}</h4>
+          <h4>${acc.at(1).account.userName}</h4>
           <h5>Online</h5>
         </section>
       </section>
@@ -104,7 +170,15 @@ class ChatView {
         <h1>August 26, Friday</h1>
       </section>
       <section class="msg">
-   
+      ${acc
+        .at(1)
+        .account.messages.sentMsg.message.map((msg) => {
+          if (msg === "") return;
+
+          return `<p class="message1">${msg}</p>`;
+        })
+        .join("")}
+
       </section>
     </section>
   </section>

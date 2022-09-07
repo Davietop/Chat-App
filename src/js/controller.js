@@ -11,8 +11,12 @@ const showLoginForm = function () {
   loginView._renderLoginMakup();
 };
 
-const displayChat = function (acc) {
+const displayChat = async function (acc, curUser, users) {
   chatView._renderChatArea(document.querySelector(".width"), acc);
+
+  chatView._addHandlerSend(acc, curUser, users);
+
+  // chatView._getData(acc[0]);
 };
 
 const loginform = async function () {
@@ -23,12 +27,13 @@ const loginform = async function () {
     // console.log(curUser);
 
     const dataUser = Object.entries(model.state.user);
-
+    const account = dataUser.findIndex(
+      (acc) => acc[0] === curUser.account.userId
+    );
+    dataUser.splice(account, 1);
     loginView._body.innerHTML = "";
-
     chatView._render(dataUser);
-
-    chatView._addHandlerId(dataUser, displayChat);
+    chatView._addHandlerId(dataUser, displayChat, curUser);
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
     loginView._errorMessage(errorCode);
@@ -70,3 +75,5 @@ export const success = function () {
 export const successLogIn = function () {
   loginView._successMessage();
 };
+
+// IF THE ID THAT LOGGGED IN IS THE SAME AS THE ID IN ONE OF THE USERS THAT ACCOUNT SHOULD NOT BE IN THE CHAT SECTION AND THAT SHOULD BE THE ADMIN

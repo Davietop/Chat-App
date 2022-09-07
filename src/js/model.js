@@ -38,8 +38,14 @@ export let createAccountEmail = async function (
       userPhoneNumber: +number,
       userProfilePic: `${username}.jpg`,
       messages: {
-        sentMsg: [""],
-        receivedMsg: [""],
+        sentMsg: {
+          to: "",
+          message: [""],
+        },
+        receivedMsg: {
+          from: "",
+          message: [""],
+        },
       },
     };
 
