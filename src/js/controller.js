@@ -2,7 +2,6 @@ import signupView from "./views/signupView.js";
 import loginView from "./views/loginView.js";
 import chatView from "./views/chatView.js";
 import * as model from "./model.js";
-import { async } from "@firebase/util";
 
 const showForm = function () {
   signupView._render();
@@ -11,12 +10,27 @@ const showLoginForm = function () {
   loginView._renderLoginMakup();
 };
 
+const handlerSend = function (acc, curUser, text) {
+  const curaccMsg = curUser.account.messages.sentMsg.chats;
+  const accMsg = acc.at(1).account.messages.receivedMsg.chats;
+  if (curaccMsg[0] === "") curaccMsg.shift();
+  if (accMsg[0] === "") accMsg.shift();
+  curaccMsg.push({
+    [acc.at(0)]: text,
+  });
+  accMsg.push({
+    [curUser.account.userId]: text,
+  });
+  model.writeUserData1(acc.at(0), acc);
+  model.writeUserData2(curUser.account.userId, curUser);
+  model.getData(acc.at(0));
+  model.getData(curUser.account.userId);
+  chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
+};
+
 const displayChat = async function (acc, curUser, users) {
-  chatView._renderChatArea(document.querySelector(".width"), acc);
-
-  chatView._addHandlerSend(acc, curUser, users);
-
-  // chatView._getData(acc[0]);
+  chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
+  chatView._addHandlerSend(acc, curUser, users, handlerSend);
 };
 
 const loginform = async function () {
@@ -24,7 +38,6 @@ const loginform = async function () {
     const email = document.getElementById("email-login");
     const password = document.getElementById("password-login");
     const curUser = await model.loginAccountEmail(email.value, password.value);
-    // console.log(curUser);
 
     const dataUser = Object.entries(model.state.user);
     const account = dataUser.findIndex(
@@ -75,5 +88,3 @@ export const success = function () {
 export const successLogIn = function () {
   loginView._successMessage();
 };
-
-// IF THE ID THAT LOGGGED IN IS THE SAME AS THE ID IN ONE OF THE USERS THAT ACCOUNT SHOULD NOT BE IN THE CHAT SECTION AND THAT SHOULD BE THE ADMIN

@@ -4,7 +4,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { getDatabase, ref, set, get, child } from "firebase/database";
+import { getDatabase, ref, set, get, child, update } from "firebase/database";
 import { success } from "./controller";
 import { successLogIn } from "./controller";
 import { FIREBASECONFIG } from "./config";
@@ -38,14 +38,8 @@ export let createAccountEmail = async function (
       userPhoneNumber: +number,
       userProfilePic: `${username}.jpg`,
       messages: {
-        sentMsg: {
-          to: "",
-          message: [""],
-        },
-        receivedMsg: {
-          from: "",
-          message: [""],
-        },
+        sentMsg: { chats: [""] },
+        receivedMsg: { chats: [""] },
       },
     };
 
@@ -85,6 +79,30 @@ export const loginAccountEmail = async function (email, password) {
     const data = snapshot.val();
     if (user) successLogIn();
     return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const writeUserData1 = function (userId, acc) {
+  const db = getDatabase();
+  update(ref(db, "users/" + userId + "/account"), {
+    messages: acc.at(1).account.messages,
+  });
+};
+
+export const writeUserData2 = function (userId, curUser) {
+  const db = getDatabase();
+  update(ref(db, "users/" + userId + "/account"), {
+    messages: curUser.account.messages,
+  });
+};
+export const getData = async function (userId) {
+  try {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, `users/${userId}`));
+    if (!snapshot.exists()) return;
+    else return snapshot.val();
   } catch (error) {
     throw error;
   }
