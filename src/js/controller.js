@@ -11,17 +11,27 @@ const showLoginForm = function () {
 };
 
 const handlerSend = function (acc, curUser, text) {
-  const curaccMsg = curUser.account.messages.sentMsg.chats;
-  const accMsg = acc.at(1).account.messages.receivedMsg.chats;
-  if (curaccMsg[0] === "") curaccMsg.shift();
-  if (accMsg[0] === "") accMsg.shift();
-  curaccMsg.push({
-    [acc.at(0)]: text,
-  });
-  accMsg.push({
-    [curUser.account.userId]: text,
-  });
-  model.writeUserData1(acc.at(0), acc);
+  const curaccMsg = curUser.account.messages.sentMsg;
+
+  const accMsg = acc.at(1).account.messages.receivedMsg;
+
+  delete curaccMsg.chats;
+  delete accMsg.chats;
+
+  const timeStamp = new Date().getTime();
+
+  curaccMsg[timeStamp] = {
+    [acc.at(0)]: {
+      [curUser.account.userId]: text,
+    },
+  };
+
+  (accMsg[timeStamp] = {
+    [curUser.account.userId]: {
+      [curUser.account.userId]: text,
+    },
+  }),
+    model.writeUserData1(acc.at(0), acc);
   model.writeUserData2(curUser.account.userId, curUser);
   model.getData(acc.at(0));
   model.getData(curUser.account.userId);
@@ -31,6 +41,31 @@ const handlerSend = function (acc, curUser, text) {
 const displayChat = async function (acc, curUser, users) {
   chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
   chatView._addHandlerSend(acc, curUser, users, handlerSend);
+
+  const clickedUserReceivedMsg = curUser.account.messages.receivedMsg;
+  const clickedUserSentMsg = curUser.account.messages.sentMsg;
+
+  const messages = { ...clickedUserReceivedMsg, ...clickedUserSentMsg };
+
+  const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
+  const receivedTimeStamp = Object.keys(clickedUserSentMsg);
+  const stamps = [...sentTimeStamp, ...receivedTimeStamp];
+  const sortedStamps = stamps.sort((a, b) => a - b);
+
+  sortedStamps.forEach((accData) => {
+    for (const data of Object.entries(messages)) {
+      const id = acc.at(0);
+      if (accData === data[0]) {
+        for (const msgCheck of Object.entries(data[1]))
+          if (msgCheck[0] === acc.at(0)) {
+            for (const msgKnown of Object.entries(msgCheck[1]))
+              if (msgKnown[0] === curUser.account.userId)
+                console.log(`<p class="message1">${msgKnown[1]}</p>`);
+              else console.log(`<p class="message2">${msgKnown[1]}</p>`);
+          }
+      }
+    }
+  });
 };
 
 const loginform = async function () {

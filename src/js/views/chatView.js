@@ -25,7 +25,6 @@ class ChatView {
   _addHandlerSend(acc, curUser, users, handlerSend) {
     const message = document.getElementById("send");
     const btn = document.getElementById("sendbtn");
-    const doc = document.querySelector(".msg");
 
     btn.addEventListener("click", function () {
       if (message.value === "") return;
@@ -89,8 +88,16 @@ class ChatView {
   }
 
   _renderChatArea(parent, acc, curUser) {
-    const clickedUserReceivedMsg = curUser.account.messages.receivedMsg.chats;
-    const clickedUserSentMsg = curUser.account.messages.sentMsg.chats;
+    const clickedUserReceivedMsg = curUser.account.messages.receivedMsg;
+    const clickedUserSentMsg = curUser.account.messages.sentMsg;
+
+    const messages = { ...clickedUserReceivedMsg, ...clickedUserSentMsg };
+
+    const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
+    const receivedTimeStamp = Object.keys(clickedUserSentMsg);
+    const stamps = [...sentTimeStamp, ...receivedTimeStamp];
+    const sortedStamps = stamps.sort((a, b) => a - b);
+
     const markUp = `
     <section class="message-box">
     <section class="top-box">
@@ -114,27 +121,22 @@ class ChatView {
         <h1>August 26, Friday</h1>
       </section>
       <section class="msg">
-     
-      ${clickedUserSentMsg
-        .map((accMsg) => {
-          for (const msgS of Object.entries(accMsg))
-            if (msgS.at(0) === acc.at(0)) {
-              const messages = msgS.at(1);
-              return `<p class="message1">${messages}</p>`;
-            }
-        })
-        .join("")}
-       ${clickedUserReceivedMsg
-         .map((accMsg) => {
-           for (const msgS of Object.entries(accMsg))
-             if (msgS.at(0) === acc.at(0)) {
-               const messages = msgS.at(1);
-               return `<p class="message2">${messages}</p>`;
-             }
-         })
-         .join("")}
-      
-    
+    ${sortedStamps
+      .map((accData) => {
+        for (const data of Object.entries(messages)) {
+          const id = acc.at(0);
+          if (accData === data[0]) {
+            for (const msgCheck of Object.entries(data[1]))
+              if (msgCheck[0] === acc.at(0)) {
+                for (const msgKnown of Object.entries(msgCheck[1]))
+                  if (msgKnown[0] === curUser.account.userId)
+                    return `<p class="message1">${msgKnown[1]}</p>`;
+                  else return `<p class="message2">${msgKnown[1]}</p>`;
+              }
+          }
+        }
+      })
+      .join("")}
       </section>
     </section>
   </section>
@@ -156,114 +158,3 @@ class ChatView {
   }
 }
 export default new ChatView();
-
-// const n = ["hey", "how are you doing", "okay"];
-// const m = ["bro", "i am fine", "yeah"];
-
-// n.forEach((num1, index) => {
-//   const p1 = document.createElement("p");
-//   const p2 = document.createElement("p");
-//   const num2 = m[index];
-
-//   p1.textContent = num1;
-//   p2.textContent = num2;
-
-//   document.querySelector(".img-bg").append(p1);
-//   document.querySelector(".img-bg").append(p2);
-// });
-
-//
-// ${acc
-//   .at(1)
-//   .account.messages.receivedMsg.message.map((msg) => {
-//     if (msg !== "") return `<p class="message1">${msg}</p>`;
-//   })
-//   .join("")}
-// ${curUser.account.messages.receivedMsg.message
-//   .map((msg) => {
-//     if (msg !== "") return `<p class="message2">${msg}</p>`;
-//   })
-//   .join("")}
-
-// // PUSH THE MSG INTO THE CURRENT USER SENT MSG ARRAY
-// let sentMsg = curUser.account.messages.sentMsg.message;
-// sentMsg.push(message.value);
-// curUser.account.messages.sentMsg.to = acc.at(0);
-
-// //  PUSH THE SENT MSG INTO THE RECEIVED MSG ARRAY OF THE USER THE MSG WAS SENT TO
-// let receivedMsg = acc.at(1).account.messages.receivedMsg.message;
-// receivedMsg.push(message.value);
-
-// acc.at(1).account.messages.receivedMsg.from = curUser.account.userId;
-
-// function writeUserData1(userId) {
-//   const db = getDatabase();
-//   update(ref(db, "users/" + userId + "/account"), {
-//     messages: acc.at(1).account.messages,
-//   });
-// }
-// writeUserData1(acc.at(0));
-
-// // curacc
-
-// function writeUserData2(userId) {
-//   const db = getDatabase();
-//   update(ref(db, "users/" + userId + "/account"), {
-//     messages: curUser.account.messages,
-//   });
-// }
-// writeUserData2(curUser.account.userId);
-
-// function getData(userId) {
-//   const dbRef = ref(getDatabase());
-//   get(child(dbRef, `users/${userId}`))
-//     .then((snapshot) => {
-//       if (snapshot.exists()) {
-//         return snapshot.val();
-//       } else {
-//         console.log("No data available");
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-// getData(acc.at(0));
-
-// clickedUserReceivedMsg
-//         .map((accMsg) => {
-//           for (const msgS of Object.entries(accMsg))
-//             if (msgS.at(0) === acc.at(0)) {
-//               const messages = msgS.at(1);
-//               return `<p class="message2">${messages}</p>`;
-//             }
-//         })
-//         .join("")}
-// ${clickedUserSentMsg
-//   .map((accMsg) => {
-//     for (const msgS of Object.entries(accMsg))
-//       if (msgS.at(0) === acc.at(0)) {
-//         const messages = msgS.at(1);
-//         return `<p class="message1">${messages}</p>`;
-//       }
-//   })
-//   .join("")
-
-// clickedUserSentMsg
-//   .map((accMsg, index) => {
-//     const msg2 = clickedUserReceivedMsg[index];
-
-//     for (const msgS of Object.entries(accMsg))
-//     if (!msg2 === "") for (const msgR of Object.entries(msg2))
-//         if (msgS.at(0) === acc.at(0) && msgR.at(0) === acc.at(0)) {
-//           const message1 = msgS.at(1);
-//           const message2 = msgR.at(1);
-//           console.log(message1, message2);
-//           return `
-//         <p class="message2">${message2}</p>
-//         <p class="message1">${message1}</p>
-//         `;
-//         }
-//   })
-//   .join("")
