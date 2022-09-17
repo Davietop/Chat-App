@@ -83,8 +83,8 @@ class LoginView {
     this.mainContent.addEventListener("click", function (e) {
       const btn = e.target.closest("i");
       if (!btn) return;
-
       btn.classList.toggle("fa-eye-slash");
+      btn.classList.toggle("fa-eye");
       const password = document.getElementById("password-login");
       if (password.type === "password") password.type = "text";
       else password.type = "password";

@@ -1,5 +1,6 @@
 import errorIcon from "../../img/error.png";
 import checkIcon from "../../img/check.png";
+import logo from "../../img/arroba.png";
 
 class SignUpView {
   _btnParentContainer = document.querySelector(".btn-group");
@@ -17,7 +18,11 @@ class SignUpView {
     this.mainContent.addEventListener("click", function (e) {
       const btn = e.target.closest("i");
       if (!btn) return;
+      console.log(btn);
+
       btn.classList.toggle("fa-eye-slash");
+      btn.classList.toggle("fa-eye");
+
       const password = document.getElementById("password");
       if (password.type === "password") password.type = "text";
       else password.type = "password";
@@ -100,7 +105,7 @@ class SignUpView {
           <form action=""  >
           <section class="logo">
           <h2>Chat</h2>
-          <img src="./src/img/arroba.png" alt="" width="40px" />
+          <img src="${logo}" alt="" width="40px" />
           </section>
           <section>
           <p class="p-1">Create an account</p>
@@ -121,6 +126,7 @@ class SignUpView {
           <label for="">Password  <i class="fa-solid fa-asterisk"></i></label>
           <input type="password" name="" id="password"  value=""/>
           <i class="fa-solid fa-eye"></i>
+         
           </section>
           <input type="submit" id="submit" value="Sign Up" />
           </form>
