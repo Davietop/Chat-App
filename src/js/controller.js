@@ -38,34 +38,9 @@ const handlerSend = function (acc, curUser, text) {
   chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
 };
 
-const displayChat = async function (acc, curUser, users) {
+const displayChat = async function (acc, curUser, user) {
   chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
-  chatView._addHandlerSend(acc, curUser, users, handlerSend);
-
-  const clickedUserReceivedMsg = curUser.account.messages.receivedMsg;
-  const clickedUserSentMsg = curUser.account.messages.sentMsg;
-
-  const messages = { ...clickedUserReceivedMsg, ...clickedUserSentMsg };
-
-  const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
-  const receivedTimeStamp = Object.keys(clickedUserSentMsg);
-  const stamps = [...sentTimeStamp, ...receivedTimeStamp];
-  const sortedStamps = stamps.sort((a, b) => a - b);
-
-  sortedStamps.forEach((accData) => {
-    for (const data of Object.entries(messages)) {
-      const id = acc.at(0);
-      if (accData === data[0]) {
-        for (const msgCheck of Object.entries(data[1]))
-          if (msgCheck[0] === acc.at(0)) {
-            for (const msgKnown of Object.entries(msgCheck[1]))
-              if (msgKnown[0] === curUser.account.userId)
-                console.log(`<p class="message1">${msgKnown[1]}</p>`);
-              else console.log(`<p class="message2">${msgKnown[1]}</p>`);
-          }
-      }
-    }
-  });
+  chatView._addHandlerSend(acc, curUser, handlerSend, displayChat);
 };
 
 const loginform = async function () {
@@ -123,3 +98,28 @@ export const success = function () {
 export const successLogIn = function () {
   loginView._successMessage();
 };
+
+// const clickedUserReceivedMsg = curUser.account.messages.receivedMsg;
+// const clickedUserSentMsg = curUser.account.messages.sentMsg;
+
+// const messages = { ...clickedUserReceivedMsg, ...clickedUserSentMsg };
+
+// const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
+// const receivedTimeStamp = Object.keys(clickedUserSentMsg);
+// const stamps = [...sentTimeStamp, ...receivedTimeStamp];
+// const sortedStamps = stamps.sort((a, b) => a - b);
+
+// sortedStamps.forEach((accData) => {
+//   for (const data of Object.entries(messages)) {
+//     const id = acc.at(0);
+//     if (accData === data[0]) {
+//       for (const msgCheck of Object.entries(data[1]))
+//         if (msgCheck[0] === acc.at(0)) {
+//           for (const msgKnown of Object.entries(msgCheck[1]))
+//             if (msgKnown[0] === curUser.account.userId)
+//               console.log(`<p class="message1">${msgKnown[1]}</p>`);
+//             else console.log(`<p class="message2">${msgKnown[1]}</p>`);
+//         }
+//     }
+//   }
+// });

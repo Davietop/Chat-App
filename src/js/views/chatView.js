@@ -22,13 +22,15 @@ class ChatView {
       });
   }
 
-  _addHandlerSend(acc, curUser, users, handlerSend) {
+  _addHandlerSend(acc, curUser, handlerSend, displayChat) {
     const message = document.getElementById("send");
     const btn = document.getElementById("sendbtn");
 
     btn.addEventListener("click", function () {
       if (message.value === "") return;
       handlerSend(acc, curUser, message.value);
+      displayChat(acc, curUser);
+
       message.value = "";
     });
   }
