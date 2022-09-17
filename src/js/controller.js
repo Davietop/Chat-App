@@ -12,14 +12,10 @@ const showLoginForm = function () {
 
 const handlerSend = function (acc, curUser, text) {
   const curaccMsg = curUser.account.messages.sentMsg;
-
   const accMsg = acc.at(1).account.messages.receivedMsg;
-
   delete curaccMsg.chats;
   delete accMsg.chats;
-
   const timeStamp = new Date().getTime();
-
   curaccMsg[timeStamp] = {
     [acc.at(0)]: {
       [curUser.account.userId]: text,
@@ -48,14 +44,13 @@ const loginform = async function () {
     const email = document.getElementById("email-login");
     const password = document.getElementById("password-login");
     const curUser = await model.loginAccountEmail(email.value, password.value);
-
     const dataUser = Object.entries(model.state.user);
     const account = dataUser.findIndex(
       (acc) => acc[0] === curUser.account.userId
     );
     dataUser.splice(account, 1);
     loginView._body.innerHTML = "";
-    chatView._render(dataUser);
+    chatView._render(dataUser, curUser);
     chatView._addHandlerId(dataUser, displayChat, curUser);
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
@@ -98,28 +93,3 @@ export const success = function () {
 export const successLogIn = function () {
   loginView._successMessage();
 };
-
-// const clickedUserReceivedMsg = curUser.account.messages.receivedMsg;
-// const clickedUserSentMsg = curUser.account.messages.sentMsg;
-
-// const messages = { ...clickedUserReceivedMsg, ...clickedUserSentMsg };
-
-// const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
-// const receivedTimeStamp = Object.keys(clickedUserSentMsg);
-// const stamps = [...sentTimeStamp, ...receivedTimeStamp];
-// const sortedStamps = stamps.sort((a, b) => a - b);
-
-// sortedStamps.forEach((accData) => {
-//   for (const data of Object.entries(messages)) {
-//     const id = acc.at(0);
-//     if (accData === data[0]) {
-//       for (const msgCheck of Object.entries(data[1]))
-//         if (msgCheck[0] === acc.at(0)) {
-//           for (const msgKnown of Object.entries(msgCheck[1]))
-//             if (msgKnown[0] === curUser.account.userId)
-//               console.log(`<p class="message1">${msgKnown[1]}</p>`);
-//             else console.log(`<p class="message2">${msgKnown[1]}</p>`);
-//         }
-//     }
-//   }
-// });

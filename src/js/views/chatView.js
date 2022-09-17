@@ -19,23 +19,22 @@ class ChatView {
         const id = btn.dataset.acc;
         const acc = data.find((acc) => acc[0] === id);
         handler(acc, curUser, data);
+        console.log(data);
       });
   }
 
   _addHandlerSend(acc, curUser, handlerSend, displayChat) {
     const message = document.getElementById("send");
     const btn = document.getElementById("sendbtn");
-
     btn.addEventListener("click", function () {
       if (message.value === "") return;
       handlerSend(acc, curUser, message.value);
       displayChat(acc, curUser);
-
       message.value = "";
     });
   }
 
-  _render(users) {
+  _render(users, curUser) {
     const markUp = `
     <main id="main-section">
     <fieldset id="chat-field">
@@ -60,13 +59,44 @@ class ChatView {
         </section>
          ${users
            .map((acc) => {
+             const clickedUserReceivedMsg =
+               curUser.account.messages.receivedMsg;
+             const clickedUserSentMsg = curUser.account.messages.sentMsg;
+
+             const messages = {
+               ...clickedUserReceivedMsg,
+               ...clickedUserSentMsg,
+             };
+
+             const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
+             const receivedTimeStamp = Object.keys(clickedUserSentMsg);
+             const stamps = [...sentTimeStamp, ...receivedTimeStamp];
+             const sortedStamps = stamps.sort((a, b) => a - b);
+
+             const mesg = [];
+             sortedStamps.forEach((accData) => {
+               for (const data of Object.entries(messages))
+                 if (accData === data[0]) {
+                   for (const msgCheck of Object.entries(data[1]))
+                     if (msgCheck[0] === acc.at(0)) {
+                       for (const msgKnown of Object.entries(msgCheck[1]))
+                         mesg.push(msgKnown);
+                     }
+                 }
+             });
+             const lastMsg = mesg.slice(-1);
+             const msgData = lastMsg
+               .map((msgData) => msgData)
+               .join("")
+               .split(",");
+
+             if (!msgData[1]) msgData[1] = "";
              return `
           <section class="chat-box" data-acc="${acc.at(0)}">
           <img src="${chatimg1}" alt="" />
           <section class="message">
             <h4>${acc.at(1).account.userName}</h4>
-            <p id="userChat"></p>
-            
+            <p id="userChat">${msgData[1].slice(0, 33)}</p>
           </section>
         </section>
           `;
@@ -74,11 +104,8 @@ class ChatView {
            .join("")}
 
       </section>
-
       <section class="width">
-       
       </section>
-
       <section class="icon-logout">
         <i class="fa-solid fa-right-from-bracket"></i>
       </section>
