@@ -8,6 +8,8 @@ import { getDatabase, ref, set, get, child, update } from "firebase/database";
 import { success } from "./controller";
 import { successLogIn } from "./controller";
 import { FIREBASECONFIG } from "./config";
+import imgProMan from "../img/profileman.png";
+import imgProWoman from "../img/profilewoman.png";
 
 export const state = {
   user: {},
@@ -21,7 +23,8 @@ export let createAccountEmail = async function (
   email,
   password,
   username,
-  number
+  number,
+  sex
 ) {
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -30,13 +33,15 @@ export let createAccountEmail = async function (
       password,
       username
     );
+    // console.log(sex);
     const user = userCredential.user;
     const userData = {
       userId: user.uid,
       userName: username,
       userEmail: user.email,
       userPhoneNumber: +number,
-      userProfilePic: `${username}.jpg`,
+      sex: sex,
+      userProfilePic: `${sex === "Male" ? imgProMan : imgProWoman}`,
       messages: {
         sentMsg: { chats: [""] },
         receivedMsg: { chats: [""] },

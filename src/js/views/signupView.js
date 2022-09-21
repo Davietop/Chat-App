@@ -102,7 +102,7 @@ class SignUpView {
 
   signInPageMarkUp() {
     return `
-          <form action=""  >
+          <form action="" id="createacc" >
           <section class="logo">
           <h2>Chat</h2>
           <img src="${logo}" alt="" width="40px" />
@@ -122,6 +122,13 @@ class SignUpView {
           <label for="">Phone Number  <i class="fa-solid fa-asterisk"></i></label>
           <input type="text" name="" id="number" value="" />
           </section>
+          <section class="sex">
+          <label for="">Gender  <i class="fa-solid fa-asterisk"></i></label>
+          <select name="" id="option">
+            <option value="Male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </section>
           <section class="password">
           <label for="">Password  <i class="fa-solid fa-asterisk"></i></label>
           <input type="password" name="" id="password"  value=""/>

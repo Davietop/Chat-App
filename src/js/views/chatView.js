@@ -1,4 +1,3 @@
-import chatimg1 from "../../img/chatimg1.jpg";
 import arroba from "../../img/arroba (2).png";
 import send from "../../img/send.png";
 
@@ -19,39 +18,25 @@ class ChatView {
         const id = btn.dataset.acc;
         const acc = data.find((acc) => acc[0] === id);
         handler(acc, curUser, data);
-        console.log(data);
       });
   }
 
-  _addHandlerSend(acc, curUser, handlerSend, displayChat) {
+  _addHandlerSend(acc, curUser, handlerSend, displayChat, reRender) {
     const message = document.getElementById("send");
     const btn = document.getElementById("sendbtn");
+    message.focus();
+
     btn.addEventListener("click", function () {
       if (message.value === "") return;
       handlerSend(acc, curUser, message.value);
       displayChat(acc, curUser);
+      reRender(curUser);
       message.value = "";
     });
   }
-
-  _render(users, curUser) {
-    const markUp = `
-    <main id="main-section">
-    <fieldset id="chat-field">
-      <section class="inbox-space">
-        <section class="logo-chat">
-          <img src="${arroba}" alt="" />
-          <h1>Chat</h1>
-        </section>
-
-        <section class="box-chat">
-          <i class="fa-solid fa-inbox"></i>
-          <p>Inbox</p>
-        </section>
-      </section>
-
-      <section class="chat-space">
-        <section class="header">
+  _renderChatMarkup(users, curUser) {
+    return `
+    <section class="header">
           <h1>Inbox</h1>
           <section class="area">
             <h3>General</h3>
@@ -91,18 +76,49 @@ class ChatView {
                .split(",");
 
              if (!msgData[1]) msgData[1] = "";
+             console.log(acc);
              return `
           <section class="chat-box" data-acc="${acc.at(0)}">
-          <img src="${chatimg1}" alt="" />
+          <img src="${acc.at(1).account.userProfilePic}" alt="" />
           <section class="message">
             <h4>${acc.at(1).account.userName}</h4>
-            <p id="userChat">${msgData[1].slice(0, 33)}</p>
+            <p id="userChat">${msgData[1].slice(0, 25)}</p>
           </section>
+         <hr id="data-hr">
         </section>
+     
           `;
            })
            .join("")}
+          
+      </section>
+   `;
+  }
 
+  _reRenderUsersSection(users, curUser) {
+    const html = this._renderChatMarkup(users, curUser);
+    document.querySelector(".chat-space").innerHTML = "";
+    document
+      .querySelector(".chat-space")
+      .insertAdjacentHTML("afterbegin", html);
+  }
+
+  _render(users, curUser) {
+    const markUp = `
+    <main id="main-section">
+    <fieldset id="chat-field">
+      <section class="inbox-space">
+        <section class="logo-chat">
+          <img src="${arroba}" alt="" />
+          <h1>Chat</h1>
+        </section>
+        <section class="box-chat">
+          <i class="fa-solid fa-inbox"></i>
+          <p>Inbox</p>
+        </section>
+      </section>
+      <section class="chat-space">
+       ${this._renderChatMarkup(users, curUser)}
       </section>
       <section class="width">
       </section>
@@ -112,26 +128,31 @@ class ChatView {
     </fieldset>
   </main>
     `;
+
     this._clear();
+
     this._body.insertAdjacentHTML("afterbegin", markUp);
   }
 
   _renderChatArea(parent, acc, curUser) {
     const clickedUserReceivedMsg = curUser.account.messages.receivedMsg;
     const clickedUserSentMsg = curUser.account.messages.sentMsg;
-
     const messages = { ...clickedUserReceivedMsg, ...clickedUserSentMsg };
-
     const sentTimeStamp = Object.keys(clickedUserReceivedMsg);
     const receivedTimeStamp = Object.keys(clickedUserSentMsg);
     const stamps = [...sentTimeStamp, ...receivedTimeStamp];
     const sortedStamps = stamps.sort((a, b) => a - b);
 
+    const date = new Date();
+    const intl = new Intl.DateTimeFormat(navigator.language, {
+      dateStyle: "full",
+    }).format(date);
+
     const markUp = `
     <section class="message-box">
     <section class="top-box">
       <section class="name">
-        <img src="${chatimg1}" alt="" />
+        <img src="${acc.at(1).account.userProfilePic}" alt="" />
         <section class="about">
           <h4>${acc.at(1).account.userName}</h4>
           <h5>Online</h5>
@@ -147,20 +168,29 @@ class ChatView {
 
     <section class="message-section">
       <section class="day">
-        <h1>August 26, Friday</h1>
+        <h1>${intl}</h1>
       </section>
       <section class="msg">
     ${sortedStamps
       .map((accData) => {
         for (const data of Object.entries(messages)) {
-          const id = acc.at(0);
           if (accData === data[0]) {
             for (const msgCheck of Object.entries(data[1]))
               if (msgCheck[0] === acc.at(0)) {
-                for (const msgKnown of Object.entries(msgCheck[1]))
+                for (const msgKnown of Object.entries(msgCheck[1])) {
+                  const timestamp = data[0];
+                  const time = new Date(+timestamp);
+                  console.log(time);
+
+                  const timeSent = new Intl.DateTimeFormat(navigator.language, {
+                    timeStyle: "short",
+                  }).format(time);
+
                   if (msgKnown[0] === curUser.account.userId)
-                    return `<p class="message1">${msgKnown[1]}</p>`;
-                  else return `<p class="message2">${msgKnown[1]}</p>`;
+                    return `<p class="message1">${msgKnown[1]} <span>${timeSent}</span></p>`;
+                  else
+                    return `<p class="message2">${msgKnown[1]} <span>${timeSent}</span></p>`;
+                }
               }
           }
         }

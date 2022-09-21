@@ -7,6 +7,10 @@ body {
   font-size: 16px;
   font-family: "Lato", sans-serif;
   width: 100%;
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .logo {
   display: flex;
@@ -16,6 +20,7 @@ body {
   position: relative;
   top: 20%;
   letter-spacing: 1px;
+  margin-top: 10%;
 }
 .logo img {
   width: 25px;
@@ -23,24 +28,23 @@ body {
   margin-top: 5px;
 }
 .img-bg {
-  width: 65%;
-  background-image: linear-gradient(
-      to right,
-      rgba(44, 108, 150),
-      rgba(113, 195, 247, 0.73),
-      rgba(246, 246, 246, 0.73)
-    ),
-    url("/src/img/chatempty.jpg");
+  width: 100%;
+  background-image: url("/src/img/bg-reg.jpg");
 
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   border: none;
+  position: relative;
+  z-index: 1;
 }
 .main-content {
   width: 35%;
   height: 100vh;
-  border: 1px solid white;
+  border: 1px solid #02010f;
+  background-color: #04030c;
+  /* background-color: white; */
+  color: rgb(177, 177, 177);
 }
 .btn-group {
   position: relative;
@@ -51,8 +55,8 @@ body {
 }
 button {
   padding: 15px;
-  background-color: white;
-  border: 5px solid rgba(246, 246, 246, 1);
+  background-color: rgb(177, 177, 177);
+  border: 5px solid rgba(177, 177, 177);
   color: black;
   font-weight: 600;
   letter-spacing: 1px;
@@ -116,7 +120,7 @@ a {
 }
 .lds-ripple div {
   position: absolute;
-  border: 4px solid #000;
+  border: 4px solid #fff;
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
@@ -160,8 +164,9 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 35%;
+  margin-top: 50%;
 }
+
 .err_message h1 {
   margin-top: 5%;
   font-weight: bold;
@@ -241,6 +246,8 @@ form .username .fa-asterisk {
   justify-content: center;
   align-items: center;
   margin-left: 5px;
+  position: relative;
+  top: -2px;
 }
 form .email .fa-asterisk {
   color: red;
@@ -249,6 +256,8 @@ form .email .fa-asterisk {
   justify-content: center;
   align-items: center;
   margin-left: 5px;
+  position: relative;
+  top: -2px;
 }
 form .phone .fa-asterisk {
   color: red;
@@ -257,6 +266,8 @@ form .phone .fa-asterisk {
   justify-content: center;
   align-items: center;
   margin-left: 5px;
+  position: relative;
+  top: -2px;
 }
 form .password .fa-asterisk {
   color: red;
@@ -266,7 +277,7 @@ form .password .fa-asterisk {
   align-items: center;
   margin-left: 5px;
   position: relative;
-  top: -3px;
+  top: -6px;
 }
 form .phone {
   display: flex;
@@ -287,6 +298,31 @@ form .phone input {
   border: 3px solid black;
   margin-bottom: 5%;
   outline: none;
+}
+form .sex label {
+  display: flex;
+  align-self: left;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+form .sex select {
+  width: 300px;
+  padding: 10px;
+  /* margin-top: 5%; */
+  margin-bottom: 5%;
+  border-radius: 8px;
+  border: 3px solid black;
+  outline: none;
+}
+form .sex .fa-asterisk {
+  color: red;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
 }
 
 form .password {
@@ -314,14 +350,15 @@ form .password i {
   margin-right: 30px;
   display: flex;
   align-self: flex-end;
+  color: black;
 }
 form #submit {
   width: 300px;
   margin-top: 10%;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid #ade2d4;
-  background: rgba(1, 157, 255, 0.73);
+  border: 1px solid #130f40;
+  background: #130f40;
   cursor: pointer;
   color: white;
   font-weight: bold;
@@ -331,10 +368,10 @@ form #submit {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 40%;
+  margin-top: 50%;
 }
 #form-login h1 {
-  margin-bottom: 15%;
+  margin-bottom: 18%;
 }
 #form-login .email-login {
   display: flex;
@@ -381,14 +418,15 @@ form .password-login i {
   margin-right: 30px;
   display: flex;
   align-self: flex-end;
+  color: black;
 }
 #form-login #login {
   width: 300px;
   margin-top: 10%;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid #ade2d4;
-  background: rgba(1, 157, 255, 0.73);
+  border: 1px solid #130f40;
+  background: #130f40;
   cursor: pointer;
   color: white;
 }
@@ -431,23 +469,18 @@ MEDIA QUERIES
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1.3%;
+  margin: 1.3%;
 }
 #chat-field {
-  width: 92%;
-  height: 94vh;
-  background: #fff;
-
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 10px;
-  box-shadow: white;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  max-height: 95vh;
+  width: 96%;
+  background: rgba(0, 0, 0, 0.21);
   border-radius: 25px;
-  border: 20px white;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(9.5px);
+  border: 2px solid rgb(53, 51, 51);
+
   display: flex;
 }
 #chat-field .inbox-space {
@@ -457,7 +490,6 @@ MEDIA QUERIES
   border-bottom-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 25px;
-  background-color: #f4f5f7;
   padding: 20px;
 }
 #chat-field .inbox-space .logo-chat {
@@ -471,6 +503,7 @@ MEDIA QUERIES
   font-family: "Poppins", sans-serif;
   letter-spacing: 2px;
   font-weight: 900;
+  color: white;
 }
 #chat-field .inbox-space .logo-chat img {
   width: 30px;
@@ -481,10 +514,12 @@ MEDIA QUERIES
   display: flex;
   align-items: center;
   margin-top: 30%;
-  background-color: white;
+  /* background-color: blue; */
+  color: white;
   padding: 15px;
   border-radius: 8px;
   cursor: pointer;
+  background-color: black;
 }
 #chat-field .inbox-space .box-chat .fa-inbox {
   color: blue;
@@ -498,37 +533,40 @@ MEDIA QUERIES
 }
 
 #chat-field .chat-space {
-  /* padding: 20px; */
   border: 1px solid;
-  border-right-color: #f4f5f7;
-  border-left-color: white;
-  border-bottom-color: white;
-  border-top-color: white;
+  border-left-color: rgb(53, 51, 51);
+  border-right-color: rgb(53, 51, 51);
+  border-top-style: none;
+  border-bottom-style: none;
   width: 25%;
   overflow: auto;
 }
 #chat-field .chat-space::-webkit-scrollbar {
-  width: 7px;
+  width: 1px;
 }
 
 #chat-field .chat-space::-webkit-scrollbar-track {
-  background: #f4f5f7;
+  background: transparent;
 }
 
 #chat-field .chat-space::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: transparent;
   border-radius: 5px;
-  border: 2px solid whitesmoke;
+  border: 2px solid rgb(53, 51, 51);
 }
 #chat-field .chat-space .header {
-  /* border: 1px solid; */
   width: auto;
   padding: 20px;
-  background-color: white;
   position: relative;
   z-index: 1;
   position: sticky;
   top: 0;
+  color: white;
+  border-top-style: none;
+  background-image: url("../img/bg-chat.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #chat-field .chat-space .header h1 {
@@ -540,40 +578,48 @@ MEDIA QUERIES
 }
 #chat-field .chat-space .header .area {
   margin-top: 10%;
-  border: 1px solid #f4f5f7;
+  border: 2px solid rgb(53, 51, 51);
   border-radius: 8px;
-  background-color: #f4f5f7;
+  background-color: black;
   text-align: center;
   padding: 10px;
 }
+
 #chat-field .chat-space .header .area h3 {
   font-family: "Roboto", sans-serif;
-  letter-spacing: 1px;
-  border: 1px solid white;
+  letter-spacing: 1.5px;
+  border: 1px solid rgb(53, 51, 51);
   width: 30%;
   padding: 5px;
-  background-color: white;
   border-radius: 8px;
   font-size: 15px;
+  color: white;
 }
 
 #chat-field .chat-space .chat-box {
   display: flex;
   align-items: center;
   margin: 6%;
-  border: 2px solid #f4f5f7;
-  background-color: #f4f5f7;
-  padding: 5px;
-  border-radius: 8px;
+  padding: 6px;
+  color: whitesmoke;
   cursor: pointer;
+  letter-spacing: 2px;
+  border: 1px solid white;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  border-color: rgb(53, 51, 51);
+  /* background-color: white; */
 }
 
 #chat-field .chat-space .chat-box img {
   clip-path: circle();
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 60px;
+  max-height: 60px;
   display: flex;
   align-self: flex-start;
+
+  background-color: rgb(78, 76, 76);
 }
 #chat-field .chat-space .chat-box .message {
   margin-left: 20px;
@@ -583,61 +629,55 @@ MEDIA QUERIES
 }
 #chat-field .chat-space .chat-box .message p {
   padding-top: 8px;
-  font-family: "Roboto", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 #chat-field .chat-space hr {
-  width: 90%;
+  width: auto;
   margin: 0 auto;
   position: relative;
-  border-color: #f4f5f7;
-  top: 3%;
+  border-color: rgb(53, 51, 51);
+  /* top: ; */
 }
 #chat-field .width {
   width: 55%;
-  background-color: #ffffff;
-  background-image: linear-gradient(
-    130deg,
-    #ffffff 30%,
-    #f4f5f7 75%,
-    #f4f5f7 79%,
-    #f4f5f7 100%
-  );
+  border: 1px solid rgb(53, 51, 51);
+  border-left-style: none;
+  border-top-style: none;
+  border-bottom-style: none;
 }
 #chat-field .width .message-box {
-  background-color: #ffffff;
-  background-image: linear-gradient(
-    130deg,
-    #ffffff 30%,
-    #f4f5f7 75%,
-    #f4f5f7 79%,
-    #f4f5f7 100%
-  );
   overflow: auto;
   height: 83.1vh;
 }
 #chat-field .width .message-box::-webkit-scrollbar {
-  width: 7px;
+  width: 1px;
 }
 
 #chat-field .width .message-box::-webkit-scrollbar-track {
-  background: #f4f5f7;
+  background: transparent;
 }
 
 #chat-field .width .message-box::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: transparent;
   border-radius: 5px;
-  border: 2px solid whitesmoke;
+  border: 2px solid rgb(53, 51, 51);
 }
 
 #chat-field .width .message-box .top-box {
-  background-color: white;
   display: flex;
   align-items: center;
-  border: 1px solid #f4f5f7;
-  border-top-color: #fff;
+  border: 1px solid rgb(53, 51, 51);
+  border-bottom-color: rgb(53, 51, 51);
+  border-left-style: none;
+  border-right-style: none;
+  border-top-style: none;
   position: sticky;
   top: 0;
   z-index: 10;
+  background-image: url("../img/bg-chat.jpg");
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 #chat-field .width .message-box .top-box .name {
   display: flex;
@@ -648,22 +688,27 @@ MEDIA QUERIES
 }
 #chat-field .width .message-box .top-box .name img {
   clip-path: circle();
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 60px;
+  max-height: 60px;
   margin-right: 15px;
+  background-color: rgb(78, 76, 76);
 }
 #chat-field .width .message-box .top-box .name .about h4 {
-  margin-top: -10px;
-  font-family: "Poppins", sans-serif;
+  margin-top: -5px;
+  font-family: "Montserrat", sans-serif;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  color: white;
+  margin-left: 7px;
 }
 #chat-field .width .message-box .top-box .name .about h5 {
-  padding-top: 1px;
-  font-family: "Noto Serif", serif;
+  padding-top: 4px;
   font-weight: 300;
   font-size: 12px;
   letter-spacing: 1px;
+  color: white;
+  margin-left: 7px;
+  font-family: "Poppins", sans-serif;
 }
 #chat-field .width .message-box .top-box .search-field {
   position: relative;
@@ -673,16 +718,20 @@ MEDIA QUERIES
   padding: 10px;
   width: 250px;
   border-radius: 8px;
-  border: 1px solid #f4f5f7;
-  background: #f4f5f7;
+  border: none;
+  border: 2px solid rgb(53, 51, 51);
+  background: transparent;
   outline: none;
+  color: white;
+  position: relative;
+  left: 250px;
 }
 #chat-field .width .message-box .top-box .search-field .fa-magnifying-glass {
   position: relative;
-  left: -40px;
+  left: 210px;
   color: grey;
   z-index: 10;
-  background-color: #f4f5f7;
+  background-color: transparent;
   width: 30px;
   cursor: pointer;
 }
@@ -696,6 +745,9 @@ MEDIA QUERIES
   font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
 }
+#chat-field .width .message-box .message-section .day h1 {
+  color: white;
+}
 #chat-field .width .message-box .message-section .msg {
   margin-top: 12%;
   width: auto;
@@ -707,15 +759,24 @@ MEDIA QUERIES
   flex-direction: column;
   align-self: flex-end;
   position: relative;
-  left: 400px;
+  left: 420px;
   width: fit-content;
-  background-color: white;
+  background-color: rgb(8, 8, 77);
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 9px;
-  color: black;
+  color: white;
   font-family: "Poppins", sans-serif;
   word-break: break-all;
+}
+#chat-field .width .message-box .message-section .msg .message1 span {
+  font-size: 12px;
+  position: relative;
+  display: flex;
+  align-self: flex-end;
+  top: 6px;
+  margin-top: -2px;
+  font-family: "Poppins", sans-serif;
 }
 
 #chat-field .width .message-box .message-section .message2 {
@@ -725,19 +786,28 @@ MEDIA QUERIES
   position: relative;
   width: fit-content;
   margin-left: 7%;
-  background-color: #f4f5f7;
+  background-color: rgb(10, 10, 46);
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 9px;
-  color: black;
+  color: white;
   font-family: "Poppins", sans-serif;
   word-break: break-all;
+}
+#chat-field .width .message-box .message-section .msg .message2 span {
+  font-size: 12px;
+  position: relative;
+  display: flex;
+  align-self: flex-end;
+  top: 6px;
+  margin-top: -2px;
+  font-family: "Poppins", sans-serif;
 }
 
 #chat-field .width hr {
   width: 85%;
   margin: 1.2% auto;
-  border-color: black;
+  border-color: rgb(53, 51, 51);
 }
 
 #chat-field .width .send-area {
@@ -758,22 +828,24 @@ MEDIA QUERIES
   font-family: "Poppins", sans-serif;
   overflow: auto;
   resize: none;
+  color: white;
 }
 #chat-field .width .send-area #send::placeholder {
   font-family: "Poppins", sans-serif;
+  color: white;
 }
 #chat-field .width .send-area #send::-webkit-scrollbar {
-  width: 7px;
+  width: 1px;
 }
 
 #chat-field .width .send-area #send::-webkit-scrollbar-track {
-  background: #f4f5f7;
+  background: transparent;
 }
 
 #chat-field .width .send-area #send::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: transparent;
   border-radius: 5px;
-  border: 2px solid rgb(171, 171, 241);
+  border: 2px solid rgb(53, 51, 51);
 }
 #chat-field .width .send-area #sendbtn {
   width: 40px;
@@ -796,4 +868,30 @@ MEDIA QUERIES
   padding: 6px;
   border-radius: 6px;
   cursor: pointer;
+  color: white;
+}
+
+.message-section .msg .message1 {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  position: relative;
+  left: 400px;
+  width: fit-content;
+  background-color: rgb(8, 8, 77);
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 9px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  word-break: break-all;
+}
+
+.message-section .msg .message1 span {
+  font-size: 10px;
+  position: relative;
+  display: flex;
+  align-self: flex-end;
+  top: 6px;
+  margin-top: -7px;
 }

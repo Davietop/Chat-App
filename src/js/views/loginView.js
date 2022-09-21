@@ -1,14 +1,16 @@
 import errorIcon from "../../img/error.png";
 import checkIcon from "../../img/check.png";
+import bg_img from "../../img/bg-chat.jpg";
 
 class LoginView {
   _btnParentContainer = document.querySelector(".btn-group");
   mainContent = document.querySelector(".main-content");
   _spinnerParent = document.querySelector(".spinner");
   _body = document.querySelector(".whole");
+  _parent = document.querySelector("body");
 
   _addHandlerShowLoginForm(handle) {
-    document.querySelector(".p-2").addEventListener("click", function () {
+    document.querySelector(".sp-1").addEventListener("click", function () {
       handle();
     });
   }
@@ -20,7 +22,7 @@ class LoginView {
   _errorMessage(message) {
     const markUp = `
     <section class="err_message">
-    <img src="${errorIcon}" alt="img" />
+    <img src="${errorIcon}" alt="img" id="errIcon" />
     <h1>Whoops!</h1>
     <p>Something went wrong</p>
     <p>${message}</p>
@@ -94,6 +96,8 @@ class LoginView {
     this.mainContent.addEventListener("click", function (e) {
       e.preventDefault();
       const btn = e.target.closest("#login");
+      document.querySelector("body").style.backgroundImage =
+        "url('http://localhost:1234/bg-chat.7dbdef3a.jpg?1663782519833')";
       if (!btn) return;
       handler();
       spinner();
