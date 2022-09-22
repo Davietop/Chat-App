@@ -11,6 +11,8 @@ import { FIREBASECONFIG } from "./config";
 import imgProMan from "../img/profileman.png";
 import imgProWoman from "../img/profilewoman.png";
 
+console.log(imgProMan, imgProWoman);
+
 export const state = {
   user: {},
 };

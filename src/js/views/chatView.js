@@ -92,6 +92,8 @@ class ChatView {
            .join("")}
           
       </section>
+
+    
    `;
   }
 
@@ -180,7 +182,6 @@ class ChatView {
                 for (const msgKnown of Object.entries(msgCheck[1])) {
                   const timestamp = data[0];
                   const time = new Date(+timestamp);
-                  console.log(time);
 
                   const timeSent = new Intl.DateTimeFormat(navigator.language, {
                     timeStyle: "short",
@@ -196,6 +197,7 @@ class ChatView {
         }
       })
       .join("")}
+
       </section>
     </section>
   </section>
