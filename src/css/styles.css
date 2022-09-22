@@ -44,7 +44,8 @@ body {
   border: 1px solid #02010f;
   background-color: #04030c;
   /* background-color: white; */
-  color: rgb(177, 177, 177);
+  /* color: rgb(177, 177, 177); */
+  color: white;
 }
 .btn-group {
   position: relative;
@@ -55,8 +56,8 @@ body {
 }
 button {
   padding: 15px;
-  background-color: rgb(177, 177, 177);
-  border: 5px solid rgba(177, 177, 177);
+  background-color: white;
+  border: 5px solid white;
   color: black;
   font-weight: 600;
   letter-spacing: 1px;
@@ -601,7 +602,8 @@ MEDIA QUERIES
   align-items: center;
   margin: 6%;
   padding: 6px;
-  color: whitesmoke;
+  /* color: whitesmoke; */
+  color: white;
   cursor: pointer;
   letter-spacing: 2px;
   border: 1px solid white;
@@ -626,10 +628,12 @@ MEDIA QUERIES
 }
 #chat-field .chat-space .chat-box .message h4 {
   font-family: "Poppins", sans-serif;
+  font-weight: bold;
 }
 #chat-field .chat-space .chat-box .message p {
   padding-top: 8px;
   font-family: "Poppins", sans-serif;
+  font-size: 13px;
 }
 #chat-field .chat-space hr {
   width: auto;
@@ -786,7 +790,7 @@ MEDIA QUERIES
   position: relative;
   width: fit-content;
   margin-left: 7%;
-  background-color: rgb(10, 10, 46);
+  background-color: rgb(14, 14, 63);
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 9px;
