@@ -1,6 +1,5 @@
 import errorIcon from "../../img/error.png";
 import checkIcon from "../../img/check.png";
-import bg_img from "../../img/bg-chat.jpg";
 
 class LoginView {
   _btnParentContainer = document.querySelector(".btn-group");
@@ -96,8 +95,7 @@ class LoginView {
     this.mainContent.addEventListener("click", function (e) {
       e.preventDefault();
       const btn = e.target.closest("#login");
-      document.querySelector("body").style.backgroundImage =
-        "url('http://localhost:1234/bg-chat.7dbdef3a.jpg?1663782519833')";
+
       if (!btn) return;
       handler();
       spinner();
