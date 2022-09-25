@@ -70,7 +70,7 @@ const loginform = async function () {
 
     loginView._body.innerHTML = "";
 
-    chatView._render(dataUser, curUser);
+    chatView.render(dataUser, curUser);
 
     renderAllUsers(dataUser, curUser);
     chatView._addHandlerId(dataUser, displayChat, curUser);

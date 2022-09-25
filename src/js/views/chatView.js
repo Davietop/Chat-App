@@ -36,16 +36,31 @@ class ChatView {
       reRender(curUser);
       message.value = "";
       document.getElementById("inbox").textContent = "Inbox";
+      // const closeBtn = document.querySelector(".fa-plus");
+      // if (closeBtn.classList.contains("fa-x"))
+      //   closeBtn.classList.add("fa-plus");
+      // console.log(closeBtn);
     });
   }
   _renderChatMarkup(users, curUser) {
+    const arrInbox = [""];
+    const chatBox = curUser.account.inboxes;
+    if (chatBox[0] !== "") {
+      const newBox = new Map(chatBox);
+      if (arrInbox[0] === "") arrInbox.shift();
+      const changeArr = [...newBox];
+      arrInbox.push(changeArr);
+    }
+    const inbox = [...arrInbox];
+    const flat = inbox.flatMap((chat) => chat);
     return `
     <section class="display-inbox">
       <section class="area">
          <h3>General</h3>
      </section>
-         ${users
+         ${flat
            .map((acc) => {
+             if (acc === "") return;
              const clickedUserReceivedMsg =
                curUser.account.messages.receivedMsg;
              const clickedUserSentMsg = curUser.account.messages.sentMsg;
@@ -64,7 +79,7 @@ class ChatView {
                for (const data of Object.entries(messages))
                  if (accData === data[0]) {
                    for (const msgCheck of Object.entries(data[1]))
-                     if (msgCheck[0] === acc.at(0)) {
+                     if (msgCheck[0] === acc[0]) {
                        for (const msgKnown of Object.entries(msgCheck[1]))
                          mesg.push(msgKnown);
                      }
@@ -79,10 +94,10 @@ class ChatView {
 
              if (!msgData[1]) msgData[1] = "";
              return `
-             <section class="chat-box" data-acc="${acc.at(0)}">
+             <section class="chat-box" data-acc="${acc[0]}">
                   <img src="${acc.at(1).account.userProfilePic}" alt="" />
                   <section class="message">
-                    <h4>${acc.at(1).account.userName}</h4>
+                    <h4>${acc[1].account.userName}</h4>
                     <p id="userChat">${msgData[1].slice(0, 25)}</p>
                   </section>
                  <hr id="data-hr">
@@ -102,9 +117,8 @@ class ChatView {
       .querySelector(".display-inbox")
       .insertAdjacentHTML("afterbegin", html);
   }
-
-  _render(users, curUser) {
-    const markUp = `
+  renderMarkUp(users, curUser) {
+    return `
         <main id="main-section">
         <fieldset id="chat-field">
           <section class="inbox-space">
@@ -124,8 +138,8 @@ class ChatView {
           <i class="fa-solid fa-plus"></i>
           </section>
          </section>
-        
          ${this._renderChatMarkup(users, curUser)}
+      
           </section>
           <section class="width">
           </section>
@@ -135,9 +149,10 @@ class ChatView {
         </fieldset>
       </main>
         `;
-
+  }
+  render(users, curUser) {
+    const markUp = this.renderMarkUp(users, curUser);
     this._clear();
-
     this._body.insertAdjacentHTML("afterbegin", markUp);
   }
 
@@ -224,7 +239,6 @@ class ChatView {
   }
 
   _renderUsersSection(users, markup2, curUser, writeInbox) {
-    const userDisplay = [];
     const markUp = users
       .map((acc) => {
         return `
@@ -272,20 +286,8 @@ class ChatView {
           inboxChat = newChat;
 
           writeInbox(curUser.account.userId, curUser);
-          // console.log(curUser);
-          // const set = new Set(curUser.account.inboxes);
-          // console.log(set);
         }
       });
   }
 }
 export default new ChatView();
-
-// _renderInbox(curUser) {
-//   const inboxChat = curUser.account.inboxes;
-//   if (inboxChat[0] === "") return;
-//   const newChat = new Map(inboxChat);
-
-//   const arr = [...newChat];
-//   return (arr);
-// }
