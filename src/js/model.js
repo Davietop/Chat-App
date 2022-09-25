@@ -11,8 +11,6 @@ import { FIREBASECONFIG } from "./config";
 import imgProMan from "../img/profileman.png";
 import imgProWoman from "../img/profilewoman.png";
 
-console.log(imgProMan, imgProWoman);
-
 export const state = {
   user: {},
 };
@@ -48,6 +46,7 @@ export let createAccountEmail = async function (
         sentMsg: { chats: [""] },
         receivedMsg: { chats: [""] },
       },
+      inboxes: [""],
     };
 
     function writeUserData(userId) {
@@ -102,8 +101,17 @@ export const writeUserData2 = function (userId, curUser) {
   const db = getDatabase();
   update(ref(db, "users/" + userId + "/account"), {
     messages: curUser.account.messages,
+    inboxes: curUser.account.inboxes,
   });
 };
+
+// export const writeInbox = function (userId, curUser) {
+//   const db = getDatabase();
+//   update(ref(db, "users/" + userId + "/account"), {
+//     inboxes: curUser.account.inboxes,
+//   });
+// };
+
 export const getData = async function (userId) {
   try {
     const dbRef = ref(getDatabase());

@@ -1,5 +1,6 @@
 import arroba from "../../img/arroba (2).png";
 import send from "../../img/send.png";
+import bg from "../../img/bg-as.jpg";
 
 class ChatView {
   _body = document.querySelector("body");
@@ -15,6 +16,8 @@ class ChatView {
       .addEventListener("click", function (e) {
         const btn = e.target.closest(".chat-box");
         if (!btn) return;
+        document.querySelector(".width").style.backgroundImage =
+          "url('http://localhost:1234/bg-as.29850432.jpg?1663970810422')";
         const id = btn.dataset.acc;
         const acc = data.find((acc) => acc[0] === id);
         handler(acc, curUser, data);
@@ -32,16 +35,15 @@ class ChatView {
       displayChat(acc, curUser);
       reRender(curUser);
       message.value = "";
+      document.getElementById("inbox").textContent = "Inbox";
     });
   }
   _renderChatMarkup(users, curUser) {
     return `
-    <section class="header">
-          <h1>Inbox</h1>
-          <section class="area">
-            <h3>General</h3>
-          </section>
-        </section>
+    <section class="display-inbox">
+      <section class="area">
+         <h3>General</h3>
+     </section>
          ${users
            .map((acc) => {
              const clickedUserReceivedMsg =
@@ -57,7 +59,6 @@ class ChatView {
              const receivedTimeStamp = Object.keys(clickedUserSentMsg);
              const stamps = [...sentTimeStamp, ...receivedTimeStamp];
              const sortedStamps = stamps.sort((a, b) => a - b);
-
              const mesg = [];
              sortedStamps.forEach((accData) => {
                for (const data of Object.entries(messages))
@@ -70,66 +71,70 @@ class ChatView {
                  }
              });
              const lastMsg = mesg.slice(-1);
+
              const msgData = lastMsg
                .map((msgData) => msgData)
                .join("")
                .split(",");
 
              if (!msgData[1]) msgData[1] = "";
-             console.log(acc);
              return `
-          <section class="chat-box" data-acc="${acc.at(0)}">
-          <img src="${acc.at(1).account.userProfilePic}" alt="" />
-          <section class="message">
-            <h4>${acc.at(1).account.userName}</h4>
-            <p id="userChat">${msgData[1].slice(0, 25)}</p>
-          </section>
-         <hr id="data-hr">
-        </section>
-     
-          `;
+             <section class="chat-box" data-acc="${acc.at(0)}">
+                  <img src="${acc.at(1).account.userProfilePic}" alt="" />
+                  <section class="message">
+                    <h4>${acc.at(1).account.userName}</h4>
+                    <p id="userChat">${msgData[1].slice(0, 25)}</p>
+                  </section>
+                 <hr id="data-hr">
+              </section>
+                  `;
            })
            .join("")}
-          
-      </section>
 
-    
+      </section>   
    `;
   }
 
   _reRenderUsersSection(users, curUser) {
     const html = this._renderChatMarkup(users, curUser);
-    document.querySelector(".chat-space").innerHTML = "";
+    document.querySelector(".display-inbox").innerHTML = "";
     document
-      .querySelector(".chat-space")
+      .querySelector(".display-inbox")
       .insertAdjacentHTML("afterbegin", html);
   }
 
   _render(users, curUser) {
     const markUp = `
-    <main id="main-section">
-    <fieldset id="chat-field">
-      <section class="inbox-space">
-        <section class="logo-chat">
-          <img src="${arroba}" alt="" />
-          <h1>Chat</h1>
-        </section>
-        <section class="box-chat">
-          <i class="fa-solid fa-inbox"></i>
-          <p>Inbox</p>
-        </section>
-      </section>
-      <section class="chat-space">
-       ${this._renderChatMarkup(users, curUser)}
-      </section>
-      <section class="width">
-      </section>
-      <section class="icon-logout">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </section>
-    </fieldset>
-  </main>
-    `;
+        <main id="main-section">
+        <fieldset id="chat-field">
+          <section class="inbox-space">
+            <section class="logo-chat">
+              <img src="${arroba}" alt="" />
+              <h1>Chat</h1>
+            </section>
+            <section class="box-chat">
+              <i class="fa-solid fa-inbox" ></i>
+              <p>Inbox</p>
+            </section>
+          </section>
+          <section class="chat-space">
+          <section class="header">
+          <section class="inbox">
+          <h1 id="inbox">Inbox</h1>
+          <i class="fa-solid fa-plus"></i>
+          </section>
+         </section>
+        
+         ${this._renderChatMarkup(users, curUser)}
+          </section>
+          <section class="width">
+          </section>
+          <section class="icon-logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+          </section>
+        </fieldset>
+      </main>
+        `;
 
     this._clear();
 
@@ -217,5 +222,70 @@ class ChatView {
     parent.innerHTML = "";
     parent.insertAdjacentHTML("afterbegin", markUp);
   }
+
+  _renderUsersSection(users, markup2, curUser, writeInbox) {
+    const userDisplay = [];
+    const markUp = users
+      .map((acc) => {
+        return `
+    <section class="chat-box box-id" data-acc="${acc.at(0)}">
+    <img src="${acc.at(1).account.userProfilePic}" alt="" />
+      <section class="message">
+      <h4>${acc.at(1).account.userName}</h4>
+      <p id="userChat">Hey there! Leave a message</p>
+    </section>
+  </section>
+    `;
+      })
+      .join("");
+    document
+      .querySelector(".chat-space")
+      .addEventListener("click", function (e) {
+        const btn = e.target.closest(".fa-plus");
+
+        if (btn) {
+          btn.classList.toggle("fa-x");
+          document.querySelector("#inbox").textContent = "Users";
+          document.querySelector(".display-inbox").innerHTML = "";
+          document
+            .querySelector(".display-inbox")
+            .insertAdjacentHTML("afterbegin", markUp);
+
+          if (btn.classList[2] !== "fa-x") {
+            const html = markup2(users, curUser);
+            document.querySelector("#inbox").textContent = "Inbox";
+            document.querySelector(".display-inbox").innerHTML = "";
+            document
+              .querySelector(".display-inbox")
+              .insertAdjacentHTML("afterbegin", html);
+          }
+        }
+        const target = e.target.closest(".box-id");
+        if (target) {
+          const id = target.dataset.acc;
+          const acc = users.find((acc) => acc[0] === id);
+          let inboxChat = curUser.account.inboxes;
+          if (inboxChat[0] === "") inboxChat.shift();
+          inboxChat.push(acc);
+          const newChat = new Set(inboxChat);
+
+          inboxChat = newChat;
+
+          writeInbox(curUser.account.userId, curUser);
+          // console.log(curUser);
+          // const set = new Set(curUser.account.inboxes);
+          // console.log(set);
+        }
+      });
+  }
 }
 export default new ChatView();
+
+// _renderInbox(curUser) {
+//   const inboxChat = curUser.account.inboxes;
+//   if (inboxChat[0] === "") return;
+//   const newChat = new Map(inboxChat);
+
+//   const arr = [...newChat];
+//   return (arr);
+// }

@@ -95,7 +95,6 @@ class LoginView {
     this.mainContent.addEventListener("click", function (e) {
       e.preventDefault();
       const btn = e.target.closest("#login");
-
       if (!btn) return;
       handler();
       spinner();

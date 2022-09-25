@@ -42,6 +42,14 @@ const _reRender = function (curUser) {
   dataUser.splice(account, 1);
   chatView._reRenderUsersSection(dataUser, curUser);
 };
+const writeInbox = function (id, curUser) {
+  model.writeUserData2(id, curUser);
+};
+
+const renderAllUsers = function (users, curUser) {
+  const markUp = chatView._renderChatMarkup;
+  chatView._renderUsersSection(users, markUp, curUser, writeInbox);
+};
 
 const displayChat = async function (acc, curUser, user) {
   chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
@@ -59,11 +67,15 @@ const loginform = async function () {
       (acc) => acc[0] === curUser.account.userId
     );
     dataUser.splice(account, 1);
+
     loginView._body.innerHTML = "";
 
     chatView._render(dataUser, curUser);
+
+    renderAllUsers(dataUser, curUser);
     chatView._addHandlerId(dataUser, displayChat, curUser);
   } catch (error) {
+    console.log(error);
     const errorCode = error.code.split("/")[1].toUpperCase();
     loginView._errorMessage(errorCode);
   }
@@ -75,8 +87,6 @@ const submitForm = async function () {
     const username = document.getElementById("username");
     const number = document.getElementById("number");
     const option = document.getElementById("option").value;
-
-    console.log(option);
 
     await model.createAccountEmail(
       email.value,

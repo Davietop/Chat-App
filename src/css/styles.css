@@ -470,18 +470,16 @@ MEDIA QUERIES
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: black; */
   background-color: rgb(21, 21, 29);
 }
 #chat-field {
   height: 100vh;
   width: 100vw;
   border: none;
-
   color: white;
   display: flex;
-  background: rgba(17, 17, 24, 0.41);
-  border-radius: 16px;
+
+  background-color: rgb(7, 7, 20);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(12px);
@@ -493,10 +491,9 @@ MEDIA QUERIES
   border-left-style: none;
   border-bottom-style: none;
   border-top-style: none;
-  border-color: rgb(190, 190, 190);
   padding: 20px;
   color: white;
-  background-color: rgb(5, 5, 17);
+  background-color: rgb(7, 7, 20);
 }
 #chat-field .inbox-space .logo-chat {
   display: flex;
@@ -504,12 +501,12 @@ MEDIA QUERIES
   justify-content: left;
 }
 #chat-field .inbox-space .logo-chat h1 {
-  font-size: 25px;
+  font-size: 22px;
   font-weight: bold;
   font-family: "Poppins", sans-serif;
   letter-spacing: 2px;
   font-weight: 900;
-  color: white;
+  color: rgb(192, 189, 189);
 }
 #chat-field .inbox-space .logo-chat img {
   width: 30px;
@@ -521,13 +518,13 @@ MEDIA QUERIES
   display: flex;
   align-items: center;
   margin-top: 30%;
-  color: white;
-  padding: 15px;
+  color: rgb(192, 189, 189);
+  padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   background-color: rgb(11, 11, 22);
 
-  border: 1px solid white;
+  border: 1px solid rgb(97, 92, 92);
 }
 #chat-field .inbox-space .box-chat .fa-inbox {
   color: rgb(45, 45, 134);
@@ -536,22 +533,18 @@ MEDIA QUERIES
 }
 #chat-field .inbox-space .box-chat p {
   font-family: "Roboto", sans-serif;
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 2px;
 }
 
 #chat-field .chat-space {
   width: 23%;
   overflow: auto;
-  /* background-color: #1b1b22; */
-
-  background: rgba(17, 17, 24, 0.41);
-
+  background: rgb(10, 10, 22);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(17, 17, 24, 0.3);
-  color: white;
 }
 #chat-field .chat-space::-webkit-scrollbar {
   width: 1px;
@@ -575,38 +568,49 @@ MEDIA QUERIES
   top: 0;
   color: white;
   border-top-style: none;
-  /* background: #04041191; */
-  background: rgba(17, 17, 24, 0.41);
+  background: rgb(10, 10, 22);
+}
+#chat-field .chat-space .header .inbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#chat-field .chat-space .header .inbox .fa-plus {
+  color: rgb(192, 189, 189);
+  cursor: pointer;
 }
 
 #chat-field .chat-space .header h1 {
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
   font-family: "Poppins", sans-serif;
   letter-spacing: 2px;
   font-weight: 900;
+  color: rgb(192, 189, 189);
 }
-#chat-field .chat-space .header .area {
-  margin-top: 10%;
-  border: 2px solid rgb(190, 190, 190);
+
+#chat-field .chat-space .display-inbox .area {
+  /* margin-top: 3%; */
+  border: 2px solid rgb(97, 92, 92);
   border-radius: 8px;
   text-align: center;
-  padding: 10px;
+  padding: 5px;
   color: white;
+  margin: 5%;
 }
 
-#chat-field .chat-space .header .area h3 {
+#chat-field .chat-space .display-inbox .area h3 {
   font-family: "Roboto", sans-serif;
   letter-spacing: 1.5px;
-  border: 1px solid rgb(190, 190, 190);
+  border: 1px solid rgb(97, 92, 92);
   width: 30%;
   padding: 5px;
-  border-radius: 8px;
-  font-size: 15px;
-  color: white;
+  border-radius: 7px;
+  font-size: 14px;
+  color: rgb(192, 189, 189);
 }
 
-#chat-field .chat-space .chat-box {
+#chat-field .chat-space .display-inbox .chat-box {
   display: flex;
   align-items: center;
   margin: 6%;
@@ -619,28 +623,29 @@ MEDIA QUERIES
   border-top-style: none;
   border-left-style: none;
   border-right-style: none;
-  border-color: rgb(190, 190, 190);
+  border-color: rgb(97, 92, 92);
 }
 
-#chat-field .chat-space .chat-box img {
+#chat-field .chat-space .display-inbox .chat-box img {
   clip-path: circle();
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 40px;
+  max-height: 40px;
   display: flex;
   align-self: flex-start;
 }
-#chat-field .chat-space .chat-box .message {
+#chat-field .chat-space .display-inbox .chat-box .message {
   margin-left: 20px;
 }
-#chat-field .chat-space .chat-box .message h4 {
+#chat-field .chat-space .display-inbox .chat-box .message h4 {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
-  color: white;
+  color: rgb(192, 189, 189);
+  font-size: 14px;
 }
-#chat-field .chat-space .chat-box .message p {
+#chat-field .chat-space .display-inbox .chat-box .message p {
   padding-top: 8px;
   font-family: "Poppins", sans-serif;
-  font-size: 13px;
+  font-size: 11px;
   color: white;
 }
 #chat-field .chat-space hr {
@@ -652,14 +657,22 @@ MEDIA QUERIES
 }
 #chat-field .width {
   width: 59%;
+  border: 1px solid rgb(26, 26, 37);
   border-left-style: none;
   border-top-style: none;
   border-bottom-style: none;
-  background-color: rgb(5, 5, 17);
+  background-color: rgb(7, 7, 20);
+  background-position: center;
+  background-size: cover;
 }
+
 #chat-field .width .message-box {
   overflow: auto;
   height: 90vh;
+  background: rgba(5, 5, 15, 0.16);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(8.8px);
 }
 #chat-field .width .message-box::-webkit-scrollbar {
   width: 1px;
@@ -685,9 +698,9 @@ MEDIA QUERIES
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(17, 17, 24, 0.41);
+  background-color: rgb(5, 5, 17);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(70px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(17, 17, 24, 0.3);
 }
@@ -700,11 +713,9 @@ MEDIA QUERIES
 }
 #chat-field .width .message-box .top-box .name img {
   clip-path: circle();
-  max-width: 60px;
-  max-height: 60px;
+  max-width: 40px;
+  max-height: 40px;
   margin-right: 15px;
-  /* background-color: white; */
-  color: white;
 }
 #chat-field .width .message-box .top-box .name .about h4 {
   margin-top: -5px;
@@ -712,15 +723,18 @@ MEDIA QUERIES
   font-weight: 700;
   letter-spacing: 2px;
   margin-left: 7px;
+  color: rgb(206, 204, 204);
+  font-size: 12px;
 }
 #chat-field .width .message-box .top-box .name .about h5 {
   padding-top: 4px;
   font-weight: 300;
   font-size: 12px;
   letter-spacing: 1px;
-
+  color: rgb(206, 204, 204);
   margin-left: 7px;
   font-family: "Poppins", sans-serif;
+  font-size: 11;
 }
 #chat-field .width .message-box .top-box .search-field {
   position: relative;
@@ -728,10 +742,11 @@ MEDIA QUERIES
 }
 #chat-field .width .message-box .top-box .search-field input {
   padding: 10px;
-  width: 250px;
+  width: 200px;
+  font-size: 10px;
   border-radius: 8px;
   border: none;
-  border: 2px solid rgb(190, 190, 190);
+  border: 1px solid rgb(97, 92, 92);
   background: transparent;
   outline: none;
   color: white;
@@ -741,7 +756,7 @@ MEDIA QUERIES
 #chat-field .width .message-box .top-box .search-field .fa-magnifying-glass {
   position: relative;
   left: 210px;
-  color: white;
+  color: rgb(206, 204, 204);
   z-index: 10;
   background-color: transparent;
   width: 30px;
@@ -756,9 +771,10 @@ MEDIA QUERIES
   top: 25px;
   font-family: "Poppins", sans-serif;
   letter-spacing: 1px;
+  font-size: 12px;
 }
 #chat-field .width .message-box .message-section .day h1 {
-  color: white;
+  color: rgb(226, 220, 220);
 }
 #chat-field .width .message-box .message-section .msg {
   margin-top: 12%;
@@ -770,19 +786,18 @@ MEDIA QUERIES
   display: flex;
   flex-direction: column;
   align-self: flex-end;
-  position: relative;
-  left: 490px;
   width: fit-content;
-  background-color: rgb(5, 5, 61);
+  background-color: rgba(5, 5, 61, 0.712);
   margin-bottom: 20px;
-  padding: 15px;
+  padding: 10px;
   border-radius: 9px;
-  color: white;
+  color: rgb(226, 220, 220);
   font-family: "Poppins", sans-serif;
   word-break: break-all;
+  font-size: 13px;
 }
 #chat-field .width .message-box .message-section .msg .message1 span {
-  font-size: 12px;
+  font-size: 10px;
   position: relative;
   display: flex;
   align-self: flex-end;
@@ -802,12 +817,14 @@ MEDIA QUERIES
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 9px;
-  color: white;
+  color: rgb(226, 220, 220);
   font-family: "Poppins", sans-serif;
   word-break: break-all;
+  font-size: 13px;
+  padding: 10px;
 }
 #chat-field .width .message-box .message-section .msg .message2 span {
-  font-size: 12px;
+  font-size: 10px;
   position: relative;
   display: flex;
   align-self: flex-end;
@@ -819,14 +836,18 @@ MEDIA QUERIES
 #chat-field .width hr {
   width: 85%;
   margin: 1.2% auto;
-  border-color: #f5f2f2;
+  border-color: rgb(97, 92, 92);
 }
 
 #chat-field .width .send-area {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 6%;
+  padding-left: 6%;
+  background: rgba(5, 5, 15, 0.16);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(8.8px);
 }
 
 #chat-field .width .send-area #send {
@@ -840,11 +861,17 @@ MEDIA QUERIES
   font-family: "Poppins", sans-serif;
   overflow: auto;
   resize: none;
-  color: white;
+  color: rgb(226, 220, 220);
+  background: rgba(5, 5, 15, 0.16);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(8.8px);
+  font-size: 11px;
 }
 #chat-field .width .send-area #send::placeholder {
   font-family: "Poppins", sans-serif;
-  color: white;
+  color: rgb(226, 220, 220);
+  font-size: 10px;
 }
 #chat-field .width .send-area #send::-webkit-scrollbar {
   width: 1px;
@@ -865,7 +892,6 @@ MEDIA QUERIES
   position: relative;
   right: 10%;
   top: -8px;
-  border: 1px solid blue;
   padding: 8px;
   border-radius: 6px;
   background: rgb(45, 45, 134);
