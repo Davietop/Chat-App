@@ -7,30 +7,34 @@ body {
   font-size: 16px;
   font-family: "Lato", sans-serif;
   width: 100%;
-
+  overflow-y: hidden;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.whole {
+  display: flex;
+  align-items: left;
 }
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 16px;
   position: relative;
   top: 20%;
   letter-spacing: 1px;
-  margin-top: 10%;
+  margin-top: 15%;
 }
 .logo img {
-  width: 25px;
+  width: 20px;
   margin-left: 8px;
-  margin-top: 5px;
+  margin-top: 1px;
 }
 .img-bg {
   width: 100%;
   background-image: url("/src/img/bg-reg.jpg");
-
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -43,19 +47,30 @@ body {
   height: 100vh;
   border: 1px solid #02010f;
   background-color: #04030c;
-  /* background-color: white; */
-  /* color: rgb(177, 177, 177); */
+
   color: white;
+  margin: 0 auto;
 }
-.btn-group {
+
+.intro {
+  position: relative;
+  top: 23%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* flex-wrap: nowrap; */
+  /* justify-content: space-between; */
+  padding: 30px;
+}
+.intro .btn-group {
   position: relative;
   top: 30%;
 }
-.btn-group .input-icon {
+.intro .btn-group .input-icon {
   padding: 5px;
 }
-button {
-  padding: 15px;
+.intro button {
+  padding: 9px;
   background-color: white;
   border: 5px solid white;
   color: black;
@@ -63,46 +78,45 @@ button {
   letter-spacing: 1px;
   margin: 5px auto;
   cursor: pointer;
-  width: 60%;
+  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
   font-size: 15px;
 }
-button i {
+.intro button i {
   position: relative;
   left: -10px;
   font-size: 15px;
 }
-.sp-1 {
+.intro .sp-1 {
   font-weight: bold;
   color: rgba(0, 255, 255, 0.815);
 }
-.p-1 {
+.intro .p-1 {
   font-weight: bold;
-  position: relative;
-  top: 25%;
-  font-size: 20px;
+  margin-bottom: 7px;
+  font-size: 15px;
   letter-spacing: 1px;
   text-align: center;
 }
-.p-2 {
+.intro .p-2 {
   margin: 15px 0;
   font-size: 0.8em;
-  position: relative;
-  top: 35%;
+  /* position: relative;
+  top: 32%; */
   letter-spacing: 1px;
   text-align: center;
 }
-.p-2 span {
+.intro .p-2 span {
   margin-left: 10px;
   color: green;
   letter-spacing: 1px;
   cursor: pointer;
   font-weight: bold;
 }
-a {
+.intro a {
   text-decoration: none;
 }
 .spinner {
@@ -110,7 +124,7 @@ a {
   align-items: center;
   justify-content: center;
   position: relative;
-  top: 42%;
+  top: 300px;
 }
 
 .lds-ripple {
@@ -164,8 +178,8 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 50%;
+  position: relative;
+  top: 25%;
 }
 
 .err_message h1 {
@@ -179,6 +193,9 @@ a {
   margin-top: 10%;
   background: red;
   color: white;
+  border: none;
+  padding: 20px;
+  border-radius: 10px;
 }
 .err_message p {
   padding: 2px;
@@ -189,7 +206,6 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: -5%;
 }
 
 form .logo {
@@ -210,11 +226,12 @@ form .email label {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 
 form .email input {
-  padding: 15px;
-  width: 300px;
+  padding: 11px;
+  width: 250px;
   border-radius: 8px;
   border: 3px solid black;
   margin-bottom: 5%;
@@ -230,11 +247,12 @@ form .username label {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 
 form .username input {
-  padding: 15px;
-  width: 300px;
+  padding: 11px;
+  width: 250px;
   border-radius: 8px;
   border: 3px solid black;
   margin-bottom: 5%;
@@ -290,11 +308,12 @@ form .phone label {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 
 form .phone input {
-  padding: 15px;
-  width: 300px;
+  padding: 11px;
+  width: 250px;
   border-radius: 8px;
   border: 3px solid black;
   margin-bottom: 5%;
@@ -305,10 +324,11 @@ form .sex label {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 form .sex select {
-  width: 300px;
-  padding: 10px;
+  width: 250px;
+  padding: 11px;
   /* margin-top: 5%; */
   margin-bottom: 5%;
   border-radius: 8px;
@@ -337,24 +357,25 @@ form .password label {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 
 form .password input {
-  padding: 15px;
-  width: 300px;
+  padding: 11px;
+  width: 250px;
   border-radius: 8px;
   border: 3px solid black;
   outline: none;
 }
 form .password i {
-  margin-top: -11%;
+  margin-top: -12%;
   margin-right: 30px;
   display: flex;
   align-self: flex-end;
   color: black;
 }
 form #submit {
-  width: 300px;
+  width: 200px;
   margin-top: 10%;
   padding: 15px;
   border-radius: 8px;
@@ -372,7 +393,7 @@ form #submit {
   margin-top: 50%;
 }
 #form-login h1 {
-  margin-bottom: 18%;
+  margin-bottom: 20%;
 }
 #form-login .email-login {
   display: flex;
@@ -384,11 +405,12 @@ form #submit {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 
 #form-login .email-login input {
-  padding: 15px;
-  width: 300px;
+  padding: 11px;
+  width: 250px;
   border-radius: 8px;
   border: 3px solid black;
   margin-bottom: 5%;
@@ -404,25 +426,26 @@ form #submit {
   align-self: left;
   margin-bottom: 10px;
   font-weight: bold;
+  font-size: 13px;
 }
 
 #form-login .password-login input {
-  padding: 15px;
-  width: 300px;
+  padding: 11px;
+  width: 250px;
   border-radius: 8px;
   border: 3px solid black;
   margin-bottom: 5%;
   outline: none;
 }
 form .password-login i {
-  margin-top: -16%;
+  margin-top: -17%;
   margin-right: 30px;
   display: flex;
   align-self: flex-end;
   color: black;
 }
 #form-login #login {
-  width: 300px;
+  width: 200px;
   margin-top: 10%;
   padding: 15px;
   border-radius: 8px;
@@ -434,37 +457,9 @@ form .password-login i {
 
 /* 
 MEDIA QUERIES
+background-color: rgba(9, 9, 22, 0.253);
 */
 
-@media (min-width: 480px) and (max-width: 768px) {
-  body {
-    width: 80%;
-    height: 100%;
-    margin: 0 auto;
-    font-size: 16px;
-    font-family: "Lato", sans-serif;
-  }
-  .logo {
-    margin: 0;
-  }
-  .p-2 {
-    margin: 15px 0 50px 0;
-    font-size: 0.8em;
-  }
-}
-
-@media (min-width: 769px) {
-  body {
-    overflow-y: hidden;
-  }
-  .whole {
-    display: flex;
-    align-items: stretch;
-  }
-  .main-content {
-    margin: 0 auto;
-  }
-}
 /* CHAT PAGE DESIGN */
 #main-section {
   display: flex;
@@ -478,73 +473,70 @@ MEDIA QUERIES
   border: none;
   color: white;
   display: flex;
-
-  background-color: rgb(7, 7, 20);
+  background-color: rgba(4, 4, 15, 0.356);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(17, 17, 24, 0.3);
 }
+
 #chat-field .inbox-space {
-  width: 15%;
+  width: 6%;
   height: 100vh;
-  border-left-style: none;
-  border-bottom-style: none;
-  border-top-style: none;
   padding: 20px;
   color: white;
-  background-color: rgb(7, 7, 20);
-}
-#chat-field .inbox-space .logo-chat {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: left;
 }
-#chat-field .inbox-space .logo-chat h1 {
-  font-size: 22px;
-  font-weight: bold;
+#chat-field .inbox-space .nav-area .profile {
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+}
+#chat-field .inbox-space .nav-area .profile img {
+  clip-path: circle();
+  max-width: 45px;
+  max-height: 45px;
+}
+#chat-field .inbox-space .nav-area .profile p {
   font-family: "Poppins", sans-serif;
-  letter-spacing: 2px;
-  font-weight: 900;
-  color: rgb(192, 189, 189);
+  letter-spacing: 1px;
+  font-size: 12px;
+  margin-top: 10%;
 }
-#chat-field .inbox-space .logo-chat img {
-  width: 30px;
-  margin-right: 10px;
-  height: 30px;
-  margin-top: 2px;
-}
-#chat-field .inbox-space .box-chat {
-  display: flex;
-  align-items: center;
-  margin-top: 30%;
-  color: rgb(192, 189, 189);
-  padding: 10px;
-  border-radius: 8px;
+#chat-field .inbox-space .nav-area .msgicon {
+  margin-top: 55px;
   cursor: pointer;
-  background-color: rgb(11, 11, 22);
+  padding: 4px;
+}
+#chat-field .inbox-space .nav-area .msgicon img {
+  max-width: 27px;
+  max-height: 27px;
+}
+#chat-field .inbox-space .nav-area .info img {
+  max-width: 27px;
+  max-height: 27px;
+  margin-top: 60px;
+  cursor: pointer;
+}
 
-  border: 1px solid rgb(97, 92, 92);
-}
-#chat-field .inbox-space .box-chat .fa-inbox {
-  color: rgb(45, 45, 134);
-  margin-right: 30px;
-  font-size: 20px;
-}
-#chat-field .inbox-space .box-chat p {
-  font-family: "Roboto", sans-serif;
-  font-size: 15px;
-  letter-spacing: 2px;
+#chat-field .inbox-space .nav-area .icon-logout .fa-right-from-bracket {
+  position: absolute;
+  bottom: 50px;
+  border: 1.5px solid whitesmoke;
+  padding: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
 }
 
 #chat-field .chat-space {
   width: 23%;
   overflow: auto;
-  background: rgb(10, 10, 22);
+  background-color: rgba(9, 9, 22, 0.253);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(17, 17, 24, 0.3);
 }
 #chat-field .chat-space::-webkit-scrollbar {
   width: 1px;
@@ -557,7 +549,7 @@ MEDIA QUERIES
 #chat-field .chat-space::-webkit-scrollbar-thumb {
   background-color: transparent;
   border-radius: 5px;
-  border: 2px solid rgb(53, 51, 51);
+  border: 2px solid rgb(26, 26, 37);
 }
 #chat-field .chat-space .header {
   width: auto;
@@ -568,7 +560,6 @@ MEDIA QUERIES
   top: 0;
   color: white;
   border-top-style: none;
-  background: rgb(10, 10, 22);
 }
 #chat-field .chat-space .header .inbox {
   display: flex;
@@ -576,7 +567,7 @@ MEDIA QUERIES
   justify-content: space-between;
 }
 #chat-field .chat-space .header .inbox .fa-plus {
-  color: rgb(192, 189, 189);
+  color: rgb(218, 216, 216);
   cursor: pointer;
 }
 
@@ -586,7 +577,7 @@ MEDIA QUERIES
   font-family: "Poppins", sans-serif;
   letter-spacing: 2px;
   font-weight: 900;
-  color: rgb(192, 189, 189);
+  color: rgb(218, 216, 216);
 }
 
 #chat-field .chat-space .display-inbox .area {
@@ -597,6 +588,8 @@ MEDIA QUERIES
   padding: 5px;
   color: white;
   margin: 5%;
+  position: sticky;
+  top: 0;
 }
 
 #chat-field .chat-space .display-inbox .area h3 {
@@ -607,23 +600,22 @@ MEDIA QUERIES
   padding: 5px;
   border-radius: 7px;
   font-size: 14px;
-  color: rgb(192, 189, 189);
+  color: rgb(218, 216, 216);
 }
 
 #chat-field .chat-space .display-inbox .chat-box {
   display: flex;
   align-items: center;
-  margin: 6%;
+  margin: 7%;
   padding: 6px;
   padding-bottom: 10px;
   color: white;
   cursor: pointer;
   letter-spacing: 2px;
-  border: 1px solid white;
+  border: 1px solid rgb(26, 26, 37);
   border-top-style: none;
   border-left-style: none;
   border-right-style: none;
-  border-color: rgb(97, 92, 92);
 }
 
 #chat-field .chat-space .display-inbox .chat-box img {
@@ -638,32 +630,27 @@ MEDIA QUERIES
 }
 #chat-field .chat-space .display-inbox .chat-box .message h4 {
   font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  color: rgb(192, 189, 189);
+
+  color: rgb(218, 216, 216);
   font-size: 14px;
 }
 #chat-field .chat-space .display-inbox .chat-box .message p {
-  padding-top: 8px;
+  padding-top: 5px;
   font-family: "Poppins", sans-serif;
   font-size: 11px;
-  color: white;
+  color: rgb(218, 216, 216);
 }
 #chat-field .chat-space hr {
   width: auto;
   margin: 0 auto;
   position: relative;
   border-color: rgb(53, 51, 51);
-  /* top: ; */
 }
 #chat-field .width {
-  width: 59%;
-  border: 1px solid rgb(26, 26, 37);
-  border-left-style: none;
-  border-top-style: none;
-  border-bottom-style: none;
-  background-color: rgb(7, 7, 20);
+  width: 68%;
   background-position: center;
   background-size: cover;
+  background-color: #1917243d;
 }
 
 #chat-field .width .message-box {
@@ -671,7 +658,7 @@ MEDIA QUERIES
   height: 90vh;
   background: rgba(5, 5, 15, 0.16);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(8.8px);
 }
 #chat-field .width .message-box::-webkit-scrollbar {
@@ -718,13 +705,13 @@ MEDIA QUERIES
   margin-right: 15px;
 }
 #chat-field .width .message-box .top-box .name .about h4 {
-  margin-top: -5px;
+  margin-top: 1px;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
   margin-left: 7px;
-  color: rgb(206, 204, 204);
-  font-size: 12px;
+  color: white;
+  font-size: 14px;
 }
 #chat-field .width .message-box .top-box .name .about h5 {
   padding-top: 4px;
@@ -735,32 +722,7 @@ MEDIA QUERIES
   margin-left: 7px;
   font-family: "Poppins", sans-serif;
   font-size: 11;
-}
-#chat-field .width .message-box .top-box .search-field {
-  position: relative;
-  left: 20%;
-}
-#chat-field .width .message-box .top-box .search-field input {
-  padding: 10px;
-  width: 200px;
-  font-size: 10px;
-  border-radius: 8px;
-  border: none;
-  border: 1px solid rgb(97, 92, 92);
-  background: transparent;
-  outline: none;
-  color: white;
-  position: relative;
-  left: 250px;
-}
-#chat-field .width .message-box .top-box .search-field .fa-magnifying-glass {
-  position: relative;
-  left: 210px;
-  color: rgb(206, 204, 204);
-  z-index: 10;
-  background-color: transparent;
-  width: 30px;
-  cursor: pointer;
+  letter-spacing: 2px;
 }
 #chat-field .width .message-box .message-section {
   width: 50%;
@@ -774,7 +736,7 @@ MEDIA QUERIES
   font-size: 12px;
 }
 #chat-field .width .message-box .message-section .day h1 {
-  color: rgb(226, 220, 220);
+  color: white;
 }
 #chat-field .width .message-box .message-section .msg {
   margin-top: 12%;
@@ -785,13 +747,13 @@ MEDIA QUERIES
 #chat-field .width .message-box .message-section .msg .message1 {
   display: flex;
   flex-direction: column;
-  align-self: flex-end;
+  align-items: flex-end;
   width: fit-content;
   background-color: rgba(5, 5, 61, 0.712);
   margin-bottom: 20px;
   padding: 10px;
   border-radius: 9px;
-  color: rgb(226, 220, 220);
+  color: white;
   font-family: "Poppins", sans-serif;
   word-break: break-all;
   font-size: 13px;
@@ -817,7 +779,7 @@ MEDIA QUERIES
   margin-bottom: 20px;
   padding: 15px;
   border-radius: 9px;
-  color: rgb(226, 220, 220);
+  color: white;
   font-family: "Poppins", sans-serif;
   word-break: break-all;
   font-size: 13px;
@@ -846,7 +808,7 @@ MEDIA QUERIES
   padding-left: 6%;
   background: rgba(5, 5, 15, 0.16);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(8.8px);
 }
 
@@ -898,7 +860,7 @@ MEDIA QUERIES
   cursor: pointer;
 }
 
-#chat-field .icon-logout .fa-right-from-bracket {
+/* #chat-field .icon-logout .fa-right-from-bracket {
   position: relative;
   top: 89%;
   left: 40%;
@@ -907,7 +869,7 @@ MEDIA QUERIES
   border-radius: 6px;
   cursor: pointer;
   color: white;
-}
+} */
 
 .message-section .msg .message1 {
   display: flex;
@@ -932,4 +894,224 @@ MEDIA QUERIES
   align-self: flex-end;
   top: 6px;
   margin-top: -7px;
+}
+/* MEDIA QUERY FOR SMALLER SCREENS */
+@media (max-width: 320px) {
+  .main-content .btn-group .input-icon #email {
+    width: fit-content;
+    padding: 8px;
+  }
+}
+@media (max-width: 480px) {
+  body {
+    overflow: auto;
+    background-color: #04030c;
+  }
+  .intro {
+    position: relative;
+    top: 25%;
+    padding: 10px;
+  }
+  .whole {
+    display: block;
+  }
+  .whole .img-bg {
+    display: none;
+  }
+  .main-content {
+    display: block;
+    width: 100%;
+    overflow: auto;
+  }
+  form .logo {
+    margin-top: 7%;
+  }
+  form #submit {
+    padding: 10px;
+    margin-bottom: 10%;
+  }
+  .main-content .btn-group #email {
+    padding: 8px;
+    width: fit-content;
+  }
+
+  #form-login {
+    position: relative;
+    top: -7%;
+  }
+  #form-login .email-login {
+    margin-top: -5%;
+  }
+  #chat-field .chat-space {
+    display: none;
+  }
+  #chat-field .icon-logout {
+    display: none;
+  }
+  #chat-field .inbox-space {
+    width: fit-content;
+  }
+  .chat-space {
+    display: none;
+  }
+}
+@media (min-width: 867px) and (max-width: 944px) {
+  #createacc {
+    width: 100%;
+    height: 90%;
+  }
+  #createacc .logo {
+    position: relative;
+    top: 1%;
+  }
+}
+@media (min-width: 600px) {
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 30%;
+  }
+}
+@media (min-width: 480px) and (max-width: 945px) {
+  body {
+    overflow: auto;
+    background-color: #04030c;
+  }
+  .whole {
+    display: block;
+  }
+  .whole .img-bg {
+    display: none;
+  }
+
+  .btn-group #email {
+    padding: 12px;
+    width: 250px;
+  }
+
+  form #submit {
+    padding: 8px;
+    margin-bottom: 10%;
+  }
+  #form-login #login {
+    padding: 15px;
+    margin-top: 15%;
+    width: 260px;
+  }
+  #form-login .password-login #password-login {
+    width: 290px;
+    padding: 15px;
+  }
+  #form-login .email-login #email-login {
+    width: 290px;
+    padding: 15px;
+  }
+  #createacc input,
+  #option {
+    width: 290px;
+    padding: 15px;
+  }
+  #createacc #submit {
+    width: 260px;
+    margin-bottom: 6%;
+  }
+  #createacc .password {
+    margin-bottom: 20px;
+  }
+  .err_message {
+    position: relative;
+    top: 20%;
+    text-align: center;
+  }
+  .err_message button {
+    width: 200px;
+    border: none;
+    padding: 20px;
+  }
+
+  .intro {
+    position: relative;
+    top: 20%;
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1024px) {
+  .whole .img-bg {
+    width: 60%;
+  }
+  .main-content {
+    width: 40%;
+    overflow: auto;
+  }
+
+  .err_message {
+    position: relative;
+    top: 20%;
+    text-align: center;
+  }
+  .main-content .btn-group #email {
+    width: fit-content;
+  }
+  #form-login #login {
+    padding: 13px;
+    width: 240px;
+  }
+  #form-login .password-login {
+    margin-bottom: -5px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .main-content {
+    width: 40%;
+  }
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  #form-login {
+    margin-top: 45%;
+  }
+  #form-login .password-login {
+    margin-bottom: 5px;
+  }
+  .intro {
+    margin-top: -7%;
+  }
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 25%;
+  }
+}
+
+@media (min-width: 1300px) {
+  .intro {
+    margin-top: -3%;
+  }
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 45%;
+  }
+}
+@media (min-width: 1280px) {
+  .spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 45%;
+  }
 }

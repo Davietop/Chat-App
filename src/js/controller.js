@@ -35,12 +35,7 @@ const handlerSend = function (acc, curUser, text) {
 };
 
 const _reRender = function (curUser) {
-  const dataUser = Object.entries(model.state.user);
-  const account = dataUser.findIndex(
-    (acc) => acc[0] === curUser.account.userId
-  );
-  dataUser.splice(account, 1);
-  chatView._reRenderUsersSection(dataUser, curUser);
+  chatView._reRenderUsersSection(curUser);
 };
 const writeInbox = function (id, curUser) {
   model.writeUserData2(id, curUser);
@@ -51,8 +46,9 @@ const renderAllUsers = function (users, curUser) {
   chatView._renderUsersSection(users, markUp, curUser, writeInbox);
 };
 
-const displayChat = async function (acc, curUser, user) {
+const displayChat = async function (acc, curUser) {
   chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
+
   chatView._addHandlerSend(acc, curUser, handlerSend, displayChat, _reRender);
 };
 
@@ -61,25 +57,22 @@ const loginform = async function () {
     const email = document.getElementById("email-login");
     const password = document.getElementById("password-login");
     const curUser = await model.loginAccountEmail(email.value, password.value);
-
     const dataUser = Object.entries(model.state.user);
     const account = dataUser.findIndex(
       (acc) => acc[0] === curUser.account.userId
     );
     dataUser.splice(account, 1);
-
     loginView._body.innerHTML = "";
-
-    chatView.render(dataUser, curUser);
-
+    chatView.render(curUser);
     renderAllUsers(dataUser, curUser);
-    chatView._addHandlerId(dataUser, displayChat, curUser);
+    chatView._addHandlerId(displayChat, curUser);
   } catch (error) {
     console.log(error);
     const errorCode = error.code.split("/")[1].toUpperCase();
     loginView._errorMessage(errorCode);
   }
 };
+
 const submitForm = async function () {
   try {
     const email = document.getElementById("email");

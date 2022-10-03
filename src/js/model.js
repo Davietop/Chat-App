@@ -3,6 +3,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { getDatabase, ref, set, get, child, update } from "firebase/database";
 import { success } from "./controller";
@@ -104,13 +105,6 @@ export const writeUserData2 = function (userId, curUser) {
     inboxes: curUser.account.inboxes,
   });
 };
-
-// export const writeInbox = function (userId, curUser) {
-//   const db = getDatabase();
-//   update(ref(db, "users/" + userId + "/account"), {
-//     inboxes: curUser.account.inboxes,
-//   });
-// };
 
 export const getData = async function (userId) {
   try {
