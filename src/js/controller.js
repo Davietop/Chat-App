@@ -1,7 +1,26 @@
+"use strict";
 import signupView from "./views/signupView.js";
 import loginView from "./views/loginView.js";
 import chatView from "./views/chatView.js";
 import * as model from "./model.js";
+import { async } from "@firebase/util";
+import { initializeApp } from "firebase/app";
+import { FIREBASECONFIG } from "./config";
+import {
+  doc,
+  setDoc,
+  getFirestore,
+  Firestore,
+  getDoc,
+  getDocs,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
+
+const app = initializeApp(FIREBASECONFIG);
+
+const db = getFirestore(app);
 
 const showForm = function () {
   signupView._render();
@@ -10,62 +29,127 @@ const showLoginForm = function () {
   loginView._renderLoginMakup();
 };
 
-const handlerSend = function (acc, curUser, text) {
-  const curaccMsg = curUser.account.messages.sentMsg;
-  const accMsg = acc.at(1).account.messages.receivedMsg;
-  delete curaccMsg.chats;
-  delete accMsg.chats;
+const handlerSend = async function (acc, curUser, text) {
   const timeStamp = new Date().getTime();
-  curaccMsg[timeStamp] = {
-    [acc.at(0)]: {
-      [curUser.account.userId]: text,
-    },
-  };
+  const curaccMsg = await model.fetchMsg(curUser.userId);
+  const accMsg = await model.fetchMsg(acc.userId);
 
-  (accMsg[timeStamp] = {
-    [curUser.account.userId]: {
-      [curUser.account.userId]: text,
+  curaccMsg.sent.push({
+    [timeStamp]: {
+      [acc.userId]: {
+        [curUser.userId]: text,
+      },
     },
-  }),
-    model.writeUserData1(acc.at(0), acc);
-  model.writeUserData2(curUser.account.userId, curUser);
-  model.getData(acc.at(0));
-  model.getData(curUser.account.userId);
-  chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
+  });
+  accMsg.receivedMsg.push({
+    [timeStamp]: {
+      [curUser.userId]: {
+        [curUser.userId]: text,
+      },
+    },
+  });
+
+  await model.storeSentMsg(curUser.userId, curaccMsg);
+  await model.storeReceivedMsg(acc.userId, accMsg);
+
+  const unsub = onSnapshot(doc(db, "messages", curUser.userId), (doc) => {
+    chatView._updateChatSection(doc.data(), curUser, acc);
+  });
+
+  lastMsg(curUser);
 };
 
-const _reRender = function (curUser) {
-  chatView._reRenderUsersSection(curUser);
+const _inboxMsgs = function inbox6(curUser) {
+  lastMsg(curUser);
 };
+
+const _reRender = async function (curUser) {
+  const msgFunc = model.fetchLastMsg;
+  const data = model.state.user;
+  const users = data.findIndex((acc) => acc.userId === curUser.userId);
+  chatView._reRenderUsersSection(curUser, _inboxMsgs);
+};
+
 const writeInbox = function (id, curUser) {
-  model.writeUserData2(id, curUser);
+  model.writeInboxData(id, curUser);
 };
 
-const renderAllUsers = function (users, curUser) {
+const renderAllUsers = async function (users, curUser) {
   const markUp = chatView._renderChatMarkup;
-  chatView._renderUsersSection(users, markUp, curUser, writeInbox);
+  const inboxId = curUser.inboxes.map((ele) => ele.userId);
+  chatView._renderUsersSection(users, markUp, curUser, writeInbox, _inboxMsgs);
 };
 
-const displayChat = async function (acc, curUser) {
-  chatView._renderChatArea(document.querySelector(".width"), acc, curUser);
+export const displayChat = async function (acc, curUser, data3) {
+  const curaccMsg = await model.fetchMsg(curUser.userId);
 
+  chatView._renderChatArea(
+    document.querySelector(".width"),
+    acc,
+    curaccMsg,
+    curUser
+  );
   chatView._addHandlerSend(acc, curUser, handlerSend, displayChat, _reRender);
+};
+
+const lastMsg = function (curUser) {
+  const inboxId = curUser.inboxes.map((ele) => ele.userId);
+
+  const data2 = inboxId.map(async (data, index) => {
+    if (!data) return;
+    const unsub = onSnapshot(doc(db, "messages", data), async (doc) => {
+      const data3 = doc.data();
+      const message2 = [...data3.sent, ...data3.receivedMsg];
+
+      const stampTime = [];
+      for (const data of message2) {
+        const dataTime = Object.keys(data)[0];
+        stampTime.push(dataTime);
+      }
+      const sortedStamps = stampTime.sort((a, b) => a - b);
+      const mesg = [];
+      sortedStamps.forEach((accData) => {
+        if (!accData) return;
+        for (const data of message2) {
+          const dataTime = Object.keys(data)[0];
+          if (accData === dataTime) {
+            for (const msgCheck of Object.entries(data)) {
+              for (const msgCheck2 of Object.entries(msgCheck[1])) {
+                if (msgCheck2[0] === curUser.userId) {
+                  for (const msgCheck3 of Object.entries(msgCheck2[1])) {
+                    mesg.push(msgCheck3[1]);
+                  }
+                }
+              }
+            }
+          }
+        }
+      });
+
+      const lastMsg = mesg.slice(-1)[0];
+      const databox = document.querySelector(".display-inbox");
+      const par = databox.querySelectorAll("p");
+      par[index].textContent = lastMsg.slice(0, 20);
+      await model.writeLastMsgData(data, lastMsg);
+    });
+  });
 };
 
 const loginform = async function () {
   try {
     const email = document.getElementById("email-login");
     const password = document.getElementById("password-login");
-    const curUser = await model.loginAccountEmail(email.value, password.value);
-    const dataUser = Object.entries(model.state.user);
-    const account = dataUser.findIndex(
-      (acc) => acc[0] === curUser.account.userId
-    );
-    dataUser.splice(account, 1);
-    loginView._body.innerHTML = "";
-    chatView.render(curUser);
-    renderAllUsers(dataUser, curUser);
-    chatView._addHandlerId(displayChat, curUser);
+    let curUser = await model.loginAccountEmail(email.value, password.value);
+    const inboxId = curUser.inboxes.map((ele) => ele.userId);
+    const data = model.state.user;
+    console.log(data);
+    const users = data.findIndex((acc) => acc.userId === curUser.userId);
+    data.splice(users, 1);
+    chatView.render(curUser, _inboxMsgs);
+    _inboxMsgs(curUser);
+
+    renderAllUsers(data, curUser);
+    chatView._addHandlerId(displayChat, curUser, data);
   } catch (error) {
     console.log(error);
     const errorCode = error.code.split("/")[1].toUpperCase();
@@ -90,6 +174,7 @@ const submitForm = async function () {
     );
   } catch (error) {
     const errorCode = error.code.split("/")[1].toUpperCase();
+    console.log(errorCode);
     signupView._errorMessage(errorCode);
   }
 };

@@ -1,10 +1,9 @@
 export const FIREBASECONFIG = {
-  apiKey: "AIzaSyA6H11TQnEfSr6jxy7DmnkLAbB21ZoPPGs",
-  authDomain: "chat-app-c879e.firebaseapp.com",
-  databaseURL: "https://chat-app-c879e-default-rtdb.firebaseio.com",
-  projectId: "chat-app-c879e",
-  storageBucket: "chat-app-c879e.appspot.com",
-  messagingSenderId: "930893778008",
-  appId: "1:930893778008:web:9ed27806d394755b134e2d",
-  measurementId: "G-N7MLN4D33F",
+  apiKey: "AIzaSyDc7FsMdAW9xZpWl_d39Bl6gC4wbqkFxBc",
+  authDomain: "chatapp-9edcf.firebaseapp.com",
+  projectId: "chatapp-9edcf",
+  storageBucket: "chatapp-9edcf.appspot.com",
+  messagingSenderId: "135455983637",
+  appId: "1:135455983637:web:639e0f067bd2ea8476a61c",
+  measurementId: "G-F18BZDZ3ZJ",
 };

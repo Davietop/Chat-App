@@ -5,20 +5,37 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getDatabase, ref, set, get, child, update } from "firebase/database";
+
+import {
+  doc,
+  setDoc,
+  getFirestore,
+  Firestore,
+  getDoc,
+  getDocs,
+  collection,
+  updateDoc,
+} from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+
+import { async } from "@firebase/util";
+
 import { success } from "./controller";
 import { successLogIn } from "./controller";
 import { FIREBASECONFIG } from "./config";
 import imgProMan from "../img/profileman.png";
 import imgProWoman from "../img/profilewoman.png";
+import * as controller from "./controller.js";
 
-export const state = {
-  user: {},
+export let state = {
+  user: [],
+  updates: [],
 };
-
 const app = initializeApp(FIREBASECONFIG);
 const auth = getAuth(app);
-const database = getDatabase(app);
+
+const db = getFirestore(app);
 
 export let createAccountEmail = async function (
   email,
@@ -34,7 +51,7 @@ export let createAccountEmail = async function (
       password,
       username
     );
-    // console.log(sex);
+
     const user = userCredential.user;
     const userData = {
       userId: user.uid,
@@ -43,22 +60,32 @@ export let createAccountEmail = async function (
       userPhoneNumber: +number,
       sex: sex,
       userProfilePic: `${sex === "Male" ? imgProMan : imgProWoman}`,
-      messages: {
-        sentMsg: { chats: [""] },
-        receivedMsg: { chats: [""] },
-      },
       inboxes: [""],
     };
+    const messages = {
+      sent: [""],
+      receivedMsg: [""],
+    };
 
-    function writeUserData(userId) {
-      const db = getDatabase();
-      set(ref(db, "users/" + userId), {
-        account: userData,
-      });
+    const lastMsg = {
+      lMsgs: [""],
+    };
+
+    async function storeMsg(id) {
+      await setDoc(doc(db, "messages", id), messages);
     }
+    async function storeLastMsg(id) {
+      await setDoc(doc(db, "lMsg", id), lastMsg);
+    }
+    async function storeData(id) {
+      await setDoc(doc(db, "users", id), userData);
+      await storeMsg(id);
+      await storeLastMsg(id);
+    }
+
     if (user) {
       success();
-      writeUserData(user.uid);
+      storeData(user.uid);
     }
   } catch (error) {
     throw error;
@@ -66,12 +93,13 @@ export let createAccountEmail = async function (
 };
 
 export const getAccount = async function () {
-  const dbRef = ref(getDatabase());
-  const snapshot = await get(child(dbRef, `users`));
-  if (!snapshot.exists()) return;
-  return (state.user = snapshot.val());
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+    state.user.push(doc.data());
+  });
 };
 getAccount();
+
 export const loginAccountEmail = async function (email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -80,39 +108,59 @@ export const loginAccountEmail = async function (email, password) {
       password
     );
     const user = userCredential.user;
-    const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, `users/${user.uid}`));
-    if (!snapshot.exists()) return;
-    const data = snapshot.val();
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) return;
+    const data = docSnap.data();
     if (user) successLogIn();
+
     return data;
   } catch (error) {
     throw error;
   }
 };
 
-export const writeUserData1 = function (userId, acc) {
-  const db = getDatabase();
-  update(ref(db, "users/" + userId + "/account"), {
-    messages: acc.at(1).account.messages,
+export const fetchMsg = async function (id) {
+  const docRef = doc(db, "messages", id);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) return;
+  const data = docSnap.data();
+
+  return data;
+};
+
+export const storeSentMsg = async function (userId, messages) {
+  const washingtonRef = doc(db, "messages", userId);
+  await updateDoc(washingtonRef, {
+    sent: messages.sent,
+  });
+};
+export const storeReceivedMsg = async function (userId, messages) {
+  const washingtonRef = doc(db, "messages", userId);
+  await updateDoc(washingtonRef, {
+    receivedMsg: messages.receivedMsg,
   });
 };
 
-export const writeUserData2 = function (userId, curUser) {
-  const db = getDatabase();
-  update(ref(db, "users/" + userId + "/account"), {
-    messages: curUser.account.messages,
-    inboxes: curUser.account.inboxes,
+export const writeInboxData = async function (userId, curUser) {
+  const washingtonRef = doc(db, "users", userId);
+  await updateDoc(washingtonRef, {
+    inboxes: curUser.inboxes,
   });
 };
 
-export const getData = async function (userId) {
-  try {
-    const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, `users/${userId}`));
-    if (!snapshot.exists()) return;
-    else return snapshot.val();
-  } catch (error) {
-    throw error;
-  }
+export const writeLastMsgData = async function (userId, msg) {
+  const washingtonRef = doc(db, "lMsg", userId);
+  await updateDoc(washingtonRef, {
+    lMsgs: { [userId]: msg },
+  });
+};
+
+export const fetchLastMsg = async function (id) {
+  const docRef = doc(db, "lMsg", id);
+  const docSnap = await getDoc(docRef);
+  if (!docSnap.exists()) return;
+  const data = docSnap.data();
+
+  return data;
 };

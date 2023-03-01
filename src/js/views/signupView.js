@@ -76,7 +76,7 @@ class SignUpView {
     const markUp = `
     <section class="err_message">
     <img src="${errorIcon}" alt="img" />
-    <h1>Whoops!</h1>
+    <h1>Whoops!!</h1>
     <p>Something went wrong</p>
     <p>${message}</p>
     <button id="btn">Try Again</button>
