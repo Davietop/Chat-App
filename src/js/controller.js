@@ -15,8 +15,9 @@ import {
   getDocs,
   collection,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
-import { doc, onSnapshot } from "firebase/firestore";
+// import { doc, onSnapshot } from "firebase/firestore";
 
 const app = initializeApp(FIREBASECONFIG);
 
